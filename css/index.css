@@ -1,0 +1,16 @@
+input{
+    width: 5rem;
+}
+#mainDiv{
+    overflow: hidden;
+}
+#ui-datepicker-div{
+    font-size: 0.8rem;
+}
+#chartDiv{
+    display: flex;
+    justify-content: space-around;
+}
+.chart{
+    height: 46%;
+}

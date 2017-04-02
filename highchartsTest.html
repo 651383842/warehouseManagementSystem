@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--标准文件-->
+    <script src="js/jquery.js"></script>
+    <script src="./js/highcharts.js"></script>
+    <script src="./js/exporting.js"></script>
+    <script src="./js/highcharts-zh_CN.js"></script>
+    <script src="./js/vue.min.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        body{
+            margin: 0;
+            width: 100%;
+        }
+        #chart1Div{
+            padding: 1rem;
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart1Div">
+        <div id="container" style="width:60%;height:400px"></div>
+        <div id="container1" style="width:40%;height:430px"></div>
+    </div>
+    <div id="container2" style="width:1200px;height:400px"></div>
+    <div id="container3" style="width:1200px;height:400px"></div>
+    <script>
+        <!--入库出库统计图-->
+        $(function () {
+            $('#container').highcharts({
+                chart: {
+                    type: 'areaspline'
+                },
+                title: {
+                    text: '入库出库统计图'
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 150,
+                    y: 100,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                },
+                xAxis: {
+                    categories: [
+                        '2017.3.1',
+                        '2017.3.2',
+                        '2017.3.3',
+                        '2017.3.4',
+                        '2017.3.5',
+                        '2017.3.6',
+                        '2017.3.7',
+                        '2017.3.8',
+                        '2017.3.9',
+                        '2017.3.10',
+                        '2017.3.11',
+                        '2017.3.12'
+                    ]
+                },
+                yAxis: {
+                    title: {
+                        text: '包裹数量/包'
+                    }
+                },
+                tooltip: {
+                    shared: true,
+                    valueSuffix: ' 包'
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    areaspline: {
+                        fillOpacity: 0.5
+                    }
+                },
+                series: [{
+                    name: '出库',
+                    data: [30, 40, 30, 50, 40, 100, 120, 50, 60, 80, 90, 200]
+                }, {
+                    name: '入库',
+                    data: [10, 30, 40, 30, 30, 50, 40, 60, 100, 120, 50, 10]
+                }]
+            });
+        });
+        $(function () {
+            $('#container1').highcharts({
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: '2016年仓储出入库情况'
+                },
+                xAxis: {
+                    categories: ['十二月', '十一月', '十月', '九月', '八月', '七月', '六月', '五月', '四月', '三月', '二月', '一月'],
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '包裹数量/包',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ' 包'
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -10,
+                    y: 50,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                    shadow: true
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: '出库',
+                    data: [1230, 4321, 2512, 6670, 1320, 4322, 2513, 1324, 4325, 2516, 6671, 1322],
+                }, {
+                    name: '入库',
+                    data: [1333, 1562, 6471, 4082, 1063, 1336, 1568, 6476, 4080, 1062, 1335, 1568]
+                },
+                ]
+            });
+        });
+
+        $(function () {
+            $('#container2').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: '当前库存量（1000）使用情况'
+                },
+                tooltip: {
+                    headerFormat: '{series.name}<br>',
+                    pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: '当前库存量',
+                    data: [
+                        {
+                            name: '未使用',
+                            y: 20.0,
+                            sliced: true,
+                            selected: true,
+                            color: '#50B432'
+                        },
+                        {
+                            name: '已使用',
+                            y: 80.0,
+                            color: 'orange'
+                        }
+                    ]
+                }]
+            });
+        });
+
+        $(function () {
+            $('#container3').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: '当前库存量（1000）使用情况'
+                },
+                tooltip: {
+                    headerFormat: '{series.name}<br>',
+                    pointFormatter: function() {
+                        if(this.name == '过载'){
+                            return this.name + ': <b>' + this.percentage +'%</b>'
+                        }else{
+                            var i = 100 - this.percentage;
+                            return this.name + ': <b>1' + i +'%</b>'
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function() {
+                                if(this.point.name == '过载'){
+                                    return this.point.name + ': <b>' + this.point.percentage +'%</b>'
+                                }else{
+                                    var i = 100 - this.point.percentage;
+                                    return this.point.name + ': <b>1' + i +'%</b>'
+                                }
+                            },
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: '当前库存量',
+                        data: [
+                        {
+                            name: '过载',
+                            y: 20.0,
+                            sliced: true,
+                            selected: true,
+                            color: 'red'
+                        },
+                        {
+                            name: '已使用',
+                            y: 80.0,
+                            color: 'orange'
+                        }
+                    ]
+                }]
+            });
+        });
+    </script>
+
+</body>
+</html>
