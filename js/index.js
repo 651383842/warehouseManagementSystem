@@ -3,6 +3,7 @@
  */
 
 $(function () {
+	$(".button").button();
 	$("#datePicker1").datepicker();
 	$("#datePicker2").datepicker();
 	$("#areaSplineDiv").highcharts({
@@ -10,7 +11,7 @@ $(function () {
 			type: 'areaspline'
 		},
 		title: {
-			text: '入库出库统计图'
+			text: '入库出库统计图-the chart of goods entry and exit '
 		},
 		legend: {
 			layout: 'vertical',
@@ -40,12 +41,12 @@ $(function () {
 		},
 		yAxis: {
 			title: {
-				text: '包裹数量/包'
+				text: '包裹数量/包-the number of goods/packet'
 			}
 		},
 		tooltip: {
 			shared: true,
-			valueSuffix: ' 包'
+			valueSuffix: ' 包-packet'
 		},
 		credits: {
 			enabled: false
@@ -56,10 +57,10 @@ $(function () {
 			}
 		},
 		series: [{
-			name: '出库',
+			name: '出库-goods exit',
 			data: [30, 40, 30, 50, 40, 100, 120, 50, 60, 80, 90, 200]
 		}, {
-			name: '入库',
+			name: '入库-goods entry',
 			data: [10, 30, 40, 30, 30, 50, 40, 60, 100, 120, 50, 10]
 		}]
 	});
@@ -70,7 +71,7 @@ $(function () {
 			plotShadow: false
 		},
 		title: {
-			text: '当前库存量（1000）使用情况'
+			text: '当前库存量（1000）使用情况-the current warehouse usage(max-standard:1000)'
 		},
 		tooltip: {
 			headerFormat: '{series.name}<br>',
@@ -97,17 +98,17 @@ $(function () {
 		},
 		series: [{
 			type: 'pie',
-			name: '当前库存量',
+			name: '当前库存量-current usage',
 			data: [
 				{
-					name: '未使用',
+					name: '未使用-rest',
 					y: 20.0,
 					sliced: true,
 					selected: true,
 					color: '#50B432'
 				},
 				{
-					name: '已使用',
+					name: '已使用-used',
 					y: 80.0,
 					color: 'orange'
 				}
@@ -119,7 +120,7 @@ $(function () {
 			type: 'bar'
 		},
 		title: {
-			text: '2016年仓储出入库情况'
+			text: '2016年仓储出入库情况-the chart of goods entry and exit in 2016'
 		},
 		xAxis: {
 			categories: ['十二月', '十一月', '十月', '九月', '八月', '七月', '六月', '五月', '四月', '三月', '二月', '一月'],
@@ -130,7 +131,7 @@ $(function () {
 		yAxis: {
 			min: 0,
 			title: {
-				text: '包裹数量/包',
+				text: '包裹数量/包-the number of goods/packet',
 				align: 'high'
 			},
 			labels: {
@@ -138,7 +139,7 @@ $(function () {
 			}
 		},
 		tooltip: {
-			valueSuffix: ' 包'
+			valueSuffix: ' 包(packet)'
 		},
 		plotOptions: {
 			bar: {
@@ -151,8 +152,8 @@ $(function () {
 			layout: 'vertical',
 			align: 'right',
 			verticalAlign: 'top',
-			x: -35,
-			y: 10,
+			x: -5,
+			y: 30,
 			floating: true,
 			borderWidth: 1,
 			backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
@@ -162,10 +163,10 @@ $(function () {
 			enabled: false
 		},
 		series: [{
-			name: '出库',
+			name: '出库-goods exit',
 			data: [1230, 4321, 2512, 6670, 1320, 4322, 2513, 1324, 4325, 2516, 6671, 1322],
 		}, {
-			name: '入库',
+			name: '入库-goods entry',
 			data: [1333, 1562, 6471, 4082, 1063, 1336, 1568, 6476, 4080, 1062, 1335, 1568],
 			color: "grey",
 		},

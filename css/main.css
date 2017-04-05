@@ -1,5 +1,5 @@
 /*----------------------初始化设置-----------------------*/
-button {
+img {
   cursor: pointer;
 }
 html{
@@ -18,27 +18,165 @@ div{
   margin: 0;
 }
 /*-------------------------区块设置---------------------------*/
+#titleDiv{
+  border:#49a9ee thin solid;
+  width: 99.9%;
+  height: 10%;
+  background-color:#49a9ee;
+  display: flex;
+  justify-content: space-between;
+}
+#title{
+  margin-left:2rem;
+}
+#title1{
+  color:white;
+  font-size: 1.5rem;
+  position: absolute;
+  top:1rem;
+}
+#title2{
+  color:white;
+  font-size: 0.5rem;
+  position: absolute;
+  top:2.8rem;
+}
+#user{
+  width:2rem;
+  height:2rem;
+  position: relative;
+  top:1.5rem;
+  margin-right:2rem;
+}
 #container{
   border: thin solid;
 }
-#titleDiv{
-  border: thin solid;
-  width: 99.9%;
-  height: 10%;
-}
+
 #pageDiv{
-  border: thin solid;
+  border: #ecf6fd thin solid;
   width: 99.9%;
   height: 89%;
   display: flex;
+  background-color: #ecf6fd;
 }
+
 #barDiv{
-  border: thin solid;
+  border:white thin solid;
   width: 10%;
+  background-color: white;
+  margin:0.5rem 0.5rem;
 }
+#menu{
+  background-color:white;
+  border:white thin solid;
+}
+li{
+  background-color:white;
+  border:white thin solid;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.li{
+  height:2rem;
+}
+
 #mainDiv{
-  border: thin solid;
-  width: 89.9%;
+  border: #ecf6fd thin solid;
+  width: 90%;
+  height:94%;
   padding: 0.5rem;
   overflow: auto;
+  margin:0.5rem 0.2rem;
+}
+#word1{
+  color:#a0a0a0;
+  font-size: 0.8rem;
+  position: relative;
+  bottom:0.2rem;
+}
+#word2{
+
+  font-size: 0.8rem;
+  position: relative;
+  bottom:0.2rem;
+}
+#main{
+  height:96%;
+  width:100%;
+  background-color: white;
+}
+.shelfDiv{
+  height: 90%;
+  overflow: auto;
+  padding: 0.5rem 0.5rem 0.5rem 0.2rem;
+  position: relative;
+  z-index: 5;
+}
+.shelfTable{
+  border: 0.5rem solid cornflowerblue;
+  border-spacing: 0;
+  border-radius: 0.5rem;
+  table-layout: fixed;
+  box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem grey;
+  height: 100%;
+  min-width: 100%;
+  position: relative;
+  z-index: 10;
+}
+.shelfTable td{
+  border: thin solid cornflowerblue;
+  box-shadow: 0 0 0.2rem 0 cornflowerblue inset;
+  width: 10rem;
+}
+.shelfTable td:hover{
+  border: thin solid yellow;
+}
+.footDiv{
+  display: flex;
+  justify-content: space-around;
+  height: 1rem;
+}
+.footSpan{
+  height: 1.6rem;
+  width: 5rem;
+  background-color: cornflowerblue;
+  box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem grey;
+  position: relative;
+  bottom: 0.5rem;
+  z-index: 10;
+}
+.useDiv{
+  height: 100%;
+}
+.useDiv span{
+  display: block;
+}
+.fractionSpan{
+  position: absolute;
+  text-align: center;
+}
+.restSpan{
+
+}
+.usedSpan{
+  background-color: orange;
+}
+.inputSpan{
+  display: block;
+  margin: 1rem;
+}
+.ui-button{
+  font-size: 0.8rem;
+}
+.ui-dialog{
+  font-size: 0.8rem;
+}
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+.ui-selectmenu-button{
+  font-size: 0.8rem;
+}
+.ui-selectmenu-menu{
+  font-size: 0.8rem;
 }

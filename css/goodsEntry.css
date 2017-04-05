@@ -1,0 +1,61 @@
+#main{
+    overflow-y: scroll;
+    padding-left: 0.5rem;
+}
+#numInput{
+    margin-right: 1rem;
+    width: 3rem;
+}
+.ui-widget-shadow{
+    box-shadow: 0 0 0 0;
+    -webkit-box-shadow: 0 0 0 0;
+}
+.ui-selectmenu-button.ui-button{
+    width: 5rem;
+    margin-right: 1rem;
+}
+.ui-selectmenu-menu{
+    font-size: 0.8rem;
+}
+#goodsDiv{
+    border-top: thin solid grey;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+}
+#detailsTable{
+    border: thin solid grey;
+    width: 95%;
+    min-height: 5rem;
+    text-align: center;
+}
+#detailsTable td{
+    border: thin solid grey;
+}
+.delSpan{
+    text-decoration: underline;
+    cursor: pointer;
+}
+#positionDiv{
+    border-top: thin solid grey;
+}
+.ui-tooltip{
+    font-size: 1rem;
+}
+#autoResultDiv{
+    padding: 1rem;
+}
+#customResultDiv{
+    padding: 1rem;
+}
+#shelfSelect-button{
+    width: 13.3rem;
+}
+#operationDiv{
+    border-top: thin solid grey;
+    padding-top: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+}
+.positionText{
+    color: red;
+}

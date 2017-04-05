@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>仓储管理-入库(warehouseManagement-goodsEntry)</title>
+  <link href="./css/jquery-ui.css" rel="stylesheet">
+  <link href="./css/main.css" rel="stylesheet">
+  <link href="css/goodsEntry.css" rel="stylesheet">
+  <style></style>
+</head>
+<body>
+
+<div id="titleDiv">
+  <div id="title">
+    <span id="title1">仓储管理系统</span>
+    </br>
+    <span id="title2">Warehouse Management</span>
+  </div>
+  <img id="user" src="./img/user.png" alt="用户"/>
+</div>
+<div id="pageDiv">
+  <div id="barDiv">
+    <ul style="width:100%;" id="menu">
+      <li ><div class="li">首页Home</div></li>
+      <li ><div class="li">查询Query</div></li>
+      <li ><div class="li">入库Inbound</div></li>
+      <li ><div class="li">出库Outbound</div></li>
+      <li ><div class="li">盘点Check</div>
+        <ul>
+          <li><div>全部货架All</div></li>
+          <li><div>变动货架Part</div></li>
+        </ul>
+      </li>
+      <li ><div class="li">管理Manege</div>
+        <ul>
+          <li><div>货物Ware</div>
+            <ul>
+              <li><div>款式Style</div></li>
+              <li><div>颜色Color</div></li>
+              <li><div>尺码Size</div></li>
+            </ul>
+          </li>
+          <li><div>货架Shelf</div>
+            <ul>
+              <li><div>数目Count</div></li>
+              <li><div>容量Capacity</div></li>
+            </ul>
+          </li>
+          <li><div>人员Staff</div>
+            <ul>
+              <li><div>库管Keeper</div></li>
+              <li><div>普通Normal</div></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div id="mainDiv">
+    <span id="word2">入库Inbound</span>
+    <div id="main">
+      <p>
+        包裹内货物数量-the total of goods：<input id="totalInput" type="text" placeholder="100">
+      </p>
+      <div id="goodsDiv">
+        <p>货物信息录入-enter goods：</p>
+        <div>
+          供应商-supplier
+          <select>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          款式-style
+          <select>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          颜色-color
+          <select>
+            <option>红red</option>
+            <option>橙orange</option>
+            <option>黄yellow</option>
+            <option>绿green</option>
+            <option>蓝blue</option>
+          </select>
+          尺码-size
+          <select>
+            <option>SS</option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>LL</option>
+          </select>
+          数量-number <input id="numInput" type="text">
+          <button id="addButton">添加到包裹表格-add to the table</button>
+        </div>
+        <table id="detailsTable">
+          <tr id="headTr">
+            <td>序号</td>
+            <td>供应商-supplier</td>
+            <td>款式-style</td>
+            <td>颜色-color</td>
+            <td>尺码-size</td>
+            <td>数量-number</td>
+            <td>操作-operation</td>
+          </tr>
+          <tr>
+            <td>总计</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="totalTd" title="请核对货物总数-Please check the total">0</td>
+            <td><span id="delAllSpan" class="delSpan">清空</span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="positionDiv">
+        <p>存放位置-placed goods：</p>
+        <input id="autoPlacedRadio" type="radio" name="placedMethod" value="智能推荐automatic recommend">
+        <label for="autoPlacedRadio">智能推荐-automatic recommend</label>
+        <div id="autoResultDiv">
+          <button id="startAutoButton">开始推荐-start recommend</button>
+          <p id="autoResultP">推荐结果：<span id="autoResultSpan"></span></p>
+
+          <div class="shelfDiv" id="autoShelfDiv">
+            <table class="shelfTable" id="autoPlacedTable">
+            </table>
+          </div>
+          <div class="footDiv">
+            <span class="footSpan"></span>
+            <span class="footSpan"></span>
+          </div>
+        </div>
+
+        <input id="customPlacedRadio" type="radio" name="placedMethod" value="自定义存放custom placed">
+        <label for="customPlacedRadio">自定义存放-custom placed</label>
+        <div id="customResultDiv">
+          <select id="shelfSelect">
+            <option selected disabled>请选择货架-please select shelf</option>
+          </select>
+        <span>
+          位置-space position：
+          <input id="positionInput" type="text" placeholder="101">
+        </span>
+
+          <div class="shelfDiv" id="customShelfDiv">
+            <table class="shelfTable" id="customPlacedTable">
+            </table>
+          </div>
+          <div class="footDiv">
+            <span class="footSpan"></span>
+            <span class="footSpan"></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="operationDiv">
+        <button id="saveButton">货物入库操作保存-save the operation of goods entry</button>
+        <button id="printButton">打印最近一次入库单-print the latest goods entry form</button>
+      </div>
+
+      <div id="dialogDiv" title="确认操作-Please confirm your operation！">
+        <p id="confirmP" class="dialogP">
+          您确定通过 <span id="methodSpan" class="positionText"></span> 方式将该货物包裹入库到 <span id="selectedShelfSpan" class="positionText"></span> 位置 <span id="positionSpan" class="positionText"></span>吗？
+        </p>
+        <p id="warnP"  class="dialogP">
+          您确定已经选择货物<span  class="positionText">入库方式和位置</span>了吗？
+          <br>
+          Are you sure that you have selected the <span  class="positionText">method and position</span> of goods entry?
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/jquery-ui.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/goodsEntry.js"></script>
+<script>
+</script>
+</body>
+</html>
