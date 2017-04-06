@@ -7,8 +7,6 @@ $(function () {
 
 	$(".button").button();
 
-	$("#shelfSelect").selectmenu();
-
 	$("#dialogDiv").dialog({
 		autoOpen: false,
 		width: 400,
@@ -43,6 +41,26 @@ $(function () {
 		]
 	});
 
+	$("#packetDiv").dialog({
+		autoOpen: false,
+		width: 400,
+		dialogClass: "no-close",
+		buttons: [
+			{
+				text: "确定-Ok",
+				click: function() {
+					$(this).dialog( "close" );
+				}
+			},
+			{
+				text: "取消-Cancel",
+				click: function() {
+					$(this).dialog( "close" );
+				}
+			}
+		]
+	});
+
 	$("#ex-shelfButton").click(function () {
 		$("#dialogDiv").dialog("open");
 	});
@@ -70,6 +88,24 @@ $(function () {
 					}
 				}));
 			}
+
+			$(".shelfTable").find("td").click(function () {
+				var trLength = 5;
+				var tdLength = 7;
+
+				$(".packetTable").empty();
+
+				for(var i = 0;i < trLength;i++){
+					$(".packetTable").append($("<tr></tr>").html(function(){
+						for(var n = 0;n < tdLength;n++){
+							var id = parseInt(Math.random() * (0 - 1000 + 1) + 1000);
+							$(this).append("<td>包裹ID<br><span style='color: blue'>" +id+"</span></td>");
+						}
+					}));
+				}
+				$("#packetDiv").dialog("open");
+			});
+
 		}
 	});
 

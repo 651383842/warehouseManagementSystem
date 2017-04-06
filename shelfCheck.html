@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>仓储管理-货架详情(warehouseManagement-shelfCheck)</title>
+  <link href="./css/jquery-ui.css" rel="stylesheet">
+  <link href="./css/main.css" rel="stylesheet">
+  <link href="css/shelfCheck.css" rel="stylesheet">
+  <style></style>
+</head>
+<body>
+
+<div id="titleDiv">
+  <div id="title">
+    <span id="title1">仓储管理系统</span>
+    </br>
+    <span id="title2">Warehouse Management</span>
+  </div>
+  <img id="user" src="./img/user.png" alt="用户"/>
+</div>
+<div id="pageDiv">
+  <div id="barDiv">
+    <ul style="width:100%;" id="menu">
+      <li ><div class="li">首页Home</div></li>
+      <li ><div class="li">查询Query</div></li>
+      <li ><div class="li">入库Inbound</div></li>
+      <li ><div class="li">出库Outbound</div></li>
+      <li ><div class="li">盘点Check</div>
+        <ul>
+          <li><div>全部货架All</div></li>
+          <li><div>变动货架Part</div></li>
+        </ul>
+      </li>
+      <li ><div class="li">管理Manege</div>
+        <ul>
+          <li><div>货物Ware</div>
+            <ul>
+              <li><div>款式Style</div></li>
+              <li><div>颜色Color</div></li>
+              <li><div>尺码Size</div></li>
+            </ul>
+          </li>
+          <li><div>货架Shelf</div>
+            <ul>
+              <li><div>数目Count</div></li>
+              <li><div>容量Capacity</div></li>
+            </ul>
+          </li>
+          <li><div>人员Staff</div>
+            <ul>
+              <li><div>库管Keeper</div></li>
+              <li><div>普通Normal</div></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div id="mainDiv">
+    <span id="word1">盘点Check / 全部货架All / </span>
+    <span id="word2">货架详情Shelf Check</span>
+    <div id="main">
+      <div class="shelfDiv">
+        <table class="shelfTable">
+          <tr>
+            <td>1</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+          </tr>
+        </table>
+      </div>
+      <div class="footDiv">
+        <span class="footSpan"></span>
+        <span class="footSpan"></span>
+      </div>
+
+      <div id="packetDiv" title="空格详情-space details">
+        <table class="packetTable">
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/jquery-ui.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/shelfCheck.js"></script>
+<script>
+</script>
+</body>
+</html>

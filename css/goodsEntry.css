@@ -35,8 +35,23 @@
     text-decoration: underline;
     cursor: pointer;
 }
+#delAllSpan{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.tdInput{
+    text-align: center;
+    border: none;
+    width: 3rem;
+}
+#totalTdInput{
+    color: red;
+}
 #positionDiv{
     border-top: thin solid grey;
+}
+#positionInput{
+    width: 13rem;
 }
 .ui-tooltip{
     font-size: 1rem;

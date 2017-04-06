@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>仓储管理-货架管理(warehouseManagement-shelfManagement)</title>
+  <title>仓储管理-货架容量(warehouseManagement-shelfManagement)</title>
   <link href="./css/jquery-ui.css" rel="stylesheet">
   <link href="./css/main.css" rel="stylesheet">
   <link href="css/shelfDetails.css" rel="stylesheet">
@@ -60,42 +60,46 @@
 
   <div id="mainDiv">
     <span id="word1">管理Manege / 货架Shelf / </span>
-    <span id="word2">货架详情Shelf Details</span>
+    <span id="word2">货架容量Shelf Capacity</span>
     <div id="main">
-    <span>
-      <select id="shelfSelect">
-        <option selected disabled>请选择货架-please select shelf</option>
-      </select>
-      <button class="button" id="ex-shelfButton">货架扩容-shelf expansion</button>
-    </span>
-    <div class="shelfDiv">
-      <table class="shelfTable">
-        <tr>
-          <td>1</td>
-          <td>2</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-        </tr>
-      </table>
-    </div>
-    <div class="footDiv">
-      <span class="footSpan"></span>
-      <span class="footSpan"></span>
-    </div>
-    <div id="dialogDiv" title="货架扩容-shelf expansion">
-      <span class="inputSpan">
-      扩展列数-extended rows：<input id="cloInput" type="text" placeholder="1">
+      <span>
+        <select id="shelfSelect">
+          <option selected disabled>请选择货架-please select shelf</option>
+        </select>
+        <button class="button" id="ex-shelfButton">货架扩容-shelf expansion</button>
       </span>
-      <span class="inputSpan">
-      空格容量-space capacity：<input id="spaceInput" type="text" placeholder="35">
-      </span>
-    </div>
+      <div class="shelfDiv">
+        <table class="shelfTable">
+          <tr>
+            <td>1</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+          </tr>
+        </table>
+      </div>
+      <div class="footDiv">
+        <span class="footSpan"></span>
+        <span class="footSpan"></span>
+      </div>
+      <div id="dialogDiv" title="货架扩容-shelf expansion">
+        <span class="inputSpan">
+        扩展列数-extended rows：<input id="cloInput" type="text" placeholder="1">
+        </span>
+        <span class="inputSpan">
+        空格容量-space capacity：<input id="spaceInput" type="text" placeholder="35">
+        </span>
+      </div>
+      <div id="packetDiv" title="空格详情-space details">
+        <table class="packetTable">
+        </table>
+      </div>
   </div>
   </div>
 </div>

@@ -62,13 +62,13 @@
     <span id="word2">入库Inbound</span>
     <div id="main">
       <p>
-        包裹内货物数量-the total of goods：<input id="totalInput" type="text" placeholder="100">
+        该包裹货物总数-the total of goods：<input id="totalInput" type="text" placeholder="100">
       </p>
       <div id="goodsDiv">
         <p>货物信息录入-enter goods：</p>
         <div>
           供应商-supplier
-          <select>
+          <select id="supplierSelect">
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -76,7 +76,7 @@
             <option>5</option>
           </select>
           款式-style
-          <select>
+          <select id="styleSelect">
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -84,7 +84,7 @@
             <option>5</option>
           </select>
           颜色-color
-          <select>
+          <select id="colorSelect">
             <option>红red</option>
             <option>橙orange</option>
             <option>黄yellow</option>
@@ -92,7 +92,7 @@
             <option>蓝blue</option>
           </select>
           尺码-size
-          <select>
+          <select id="sizeSelect">
             <option>SS</option>
             <option>S</option>
             <option>M</option>
@@ -104,7 +104,7 @@
         </div>
         <table id="detailsTable">
           <tr id="headTr">
-            <td>序号</td>
+            <td>序号-No.</td>
             <td>供应商-supplier</td>
             <td>款式-style</td>
             <td>颜色-color</td>
@@ -112,14 +112,14 @@
             <td>数量-number</td>
             <td>操作-operation</td>
           </tr>
-          <tr>
-            <td>总计</td>
+          <tr id="totalTr">
+            <td>总计-total</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td id="totalTd" title="请核对货物总数-Please check the total">0</td>
-            <td><span id="delAllSpan" class="delSpan">清空</span></td>
+            <td id="totalTd" title="请核对货物总数-Please check the total" type="text"><input id="totalTdInput" class="tdInput" type="text" value="0" readonly></td>
+            <td><span id="delAllSpan">清空-clean out</span></td>
           </tr>
         </table>
       </div>
@@ -131,7 +131,6 @@
         <div id="autoResultDiv">
           <button id="startAutoButton">开始推荐-start recommend</button>
           <p id="autoResultP">推荐结果：<span id="autoResultSpan"></span></p>
-
           <div class="shelfDiv" id="autoShelfDiv">
             <table class="shelfTable" id="autoPlacedTable">
             </table>
@@ -148,11 +147,10 @@
           <select id="shelfSelect">
             <option selected disabled>请选择货架-please select shelf</option>
           </select>
-        <span>
-          位置-space position：
-          <input id="positionInput" type="text" placeholder="101">
-        </span>
-
+          <span>
+            位置-space position：
+            <input id="positionInput" type="text" placeholder="必须>100-must be greater than 100">
+          </span>
           <div class="shelfDiv" id="customShelfDiv">
             <table class="shelfTable" id="customPlacedTable">
             </table>
@@ -177,6 +175,30 @@
           您确定已经选择货物<span  class="positionText">入库方式和位置</span>了吗？
           <br>
           Are you sure that you have selected the <span  class="positionText">method and position</span> of goods entry?
+        </p>
+        <p id="notNullP"  class="dialogP">
+          数量不能为空且输入必须为数字！
+          <br>
+          The number of goods should be null and the input should be a number!
+        </p>
+        <p id="totalP"  class="dialogP">
+          货物数量和包裹预设总数不一致！
+          <br>
+          the number of goods in the table is different from the total above!
+        </p>
+      </div>
+      <div id="delAllGoodsDiv" title="请确认操作-Please confirm your operation！">
+        <p>
+          您确定要清空所有添加到该包裹列表的货物吗？
+          <br>
+          Are you sure to clean out the goods list?
+        </p>
+      </div>
+      <div id="delGoodsDiv" title="请确认操作-Please confirm your operation！">
+        <p>
+          您确定要从该包裹列表的删除这一货物吗？
+          <br>
+          Are you sure to delete it from the goods list?
         </p>
       </div>
     </div>
