@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+  <title>仓储管理 入库-WarehouseManagement Inbound</title>
+  <link href="./css/jquery-ui.css" rel="stylesheet"/>
+  <link href="./css/main.css" rel="stylesheet"/>
+  <link href="./css/inbound.css" rel="stylesheet"/>
+  <style></style>
+</head>
+<body>
+
+<div id="titleDiv">
+  <div id="title">
+    <span id="title1">仓储管理系统</span>
+    </br>
+    <span id="title2">Warehouse Management System</span>
+  </div>
+  <img id="user" src="./img/user.png" alt="用户"/>
+</div>
+<div id="pageDiv">
+  <div id="barDiv">
+    <ul style="width:100%;" id="menu">
+      <li ><div class="li">首页<br/>Home</div></li>
+      <li ><div class="li">查询<br/>Query</div>
+        <ul>
+          <li><div>货物<br/>Ware</div></li>
+          <li><div>出入库<br/>In&Outbound</div></li>
+        </ul>
+      </li>
+      <li ><div class="li">入库<br/>Inbound</div></li>
+      <li ><div class="li">出库<br/>Outbound</div></li>
+      <li ><div class="li">盘点<br/>Check</div>
+        <ul>
+          <li><div>全部货架<br/>Shelf</div></li>
+          <li><div>变动空格<br/>Space</div></li>
+        </ul>
+      </li>
+      <li ><div class="li">管理<br/>Management</div>
+        <ul>
+          <li><div>货物<br/>Ware</div>
+            <ul>
+              <li><div>款式<br/>Style</div></li>
+              <li><div>颜色<br/>Color</div></li>
+              <li><div>尺码<br/>Size</div></li>
+            </ul>
+          </li>
+          <li><div>货架<br/>Shelf</div>
+            <ul>
+              <li><div>数目<br/>Count</div></li>
+              <li><div>容量<br/>Capacity</div></li>
+            </ul>
+          </li>
+          <li><div>人员<br/>Staff</div>
+            <ul>
+              <li><div>库管<br/>Keeper</div></li>
+              <li><div>普通<br/>Normal</div></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div id="usageWarnDiv">库存使用<br/>Stock Usage：<span id="usageSpan">空闲-Free</span></div>
+  </div>
+
+  <div id="mainDiv">
+    <span id="word2">入库Inbound</span>
+    <div id="main">
+      <p>
+        该包裹货物总数-The Total Of Wares：<input id="totalInput" type="text" placeholder="100"/>
+      </p>
+      <div id="goodsDiv">
+        <p>货物信息录入-Enter Wares：</p>
+        <div class="conditionDiv">
+          供应商-Supplier
+          <select id="supplierSelect">
+            <option disabled selected></option>
+            <!--<option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>-->
+          </select>
+          款式-Style
+          <select id="styleSelect">
+            <option disabled selected></option>
+            <!--<option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>-->
+          </select>
+          颜色-Color
+          <select id="colorSelect">
+            <option disabled selected></option>
+            <!--<option>红red</option>
+            <option>橙orange</option>
+            <option>黄yellow</option>
+            <option>绿green</option>
+            <option>蓝blue</option>-->
+          </select>
+          尺码-Size
+          <select id="sizeSelect">
+            <option disabled selected></option>
+            <!--<option>SS</option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>LL</option>-->
+          </select>
+          数量-Number <input id="numInput" type="text"/>
+          <button id="addButton" class="button">添加add</button>
+        </div>
+        <table id="detailsTable">
+          <tr id="headTr">
+            <td>序号-No.</td>
+            <td>供应商-Supplier</td>
+            <td>款式-Style</td>
+            <td>颜色-Color</td>
+            <td>尺码-Size</td>
+            <td>数量-Number</td>
+            <td>操作-Operation</td>
+          </tr>
+          <tr id="totalTr">
+            <td>总计-Count</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="totalTd" title="请核对货物总数-Please Check The Total" type="text"><input id="totalTdInput" class="tdInput" type="text" value="" readonly/></td>
+            <td><span id="delAllSpan"><img src="./img/delete.png"></span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="positionDiv">
+        <p>存放位置-Placed Wares：</p>
+        <input id="autoPlacedRadio" type="radio" name="placedMethod" value="智能推荐Automatic Recommend"/>
+        <label for="autoPlacedRadio">智能推荐-Automatic Recommend</label>
+        <div id="autoResultDiv">
+          <button id="startAutoButton" class="button">开始Start</button>
+          <p id="autoResultP">推荐结果-Recommend Result：货架-Shelf<span id="autoResultSpan"></span></p>
+          <div class="shelfDiv" id="autoShelfDiv">
+            <table class="shelfTable" id="autoPlacedTable">
+            </table>
+          </div>
+          <div class="footDiv">
+            <span class="footSpan"></span>
+            <span class="footSpan"></span>
+          </div>
+        </div>
+
+        <input id="customPlacedRadio" type="radio" name="placedMethod" value="自定义存放Custom Placed"/>
+        <label for="customPlacedRadio">自定义存放-Custom Placed</label>
+        <div id="customResultDiv">
+          选择货架-Select Shelf：
+          <select id="shelfSelect">
+            <option selected disabled></option>
+          </select>
+          <span>
+            位置-Space Position：
+            <input id="positionInput" type="text" placeholder="必须>100-Must Be Greater Than 100"/>
+          </span>
+          <div class="shelfDiv" id="customShelfDiv">
+            <table class="shelfTable" id="customPlacedTable">
+            </table>
+          </div>
+          <div class="footDiv">
+            <span class="footSpan"></span>
+            <span class="footSpan"></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="operationDiv">
+        <button id="saveButton" class="button">入库保存Save Inbound</button>
+        <button id="printQueryButton" class="button">入库历史Inbound History</button>
+      </div>
+
+      <div id="dialogDiv" title="请确认操作-Please Confirm Your Operation！">
+        <p id="confirmP" class="dialogP">
+          您确定通过 <span id="methodSpan" class="positionText"></span> 方式将该货物包裹入库到货架 <span id="selectedShelfSpan" class="positionText"></span> 位置 <span id="positionSpan" class="positionText"></span>吗？
+          <br/>Are you sure to use this method to put the packet into the space?
+        </p>
+        <p id="warnP"  class="dialogP">
+          您确定已经选择货物<span  class="positionText">入库方式和位置</span>了吗？
+          <br/>
+          Are you sure that you have selected the <span  class="positionText">method and position</span> of wares inbound?
+        </p>
+        <p id="notNullP"  class="dialogP">
+          数量不能为0且输入必须为数字！
+          <br/>
+          The number of wares should be null and the input should be a number!
+        </p>
+        <p id="totalP"  class="dialogP">
+          货物数量和包裹预设总数不一致！
+          <br/>
+          the number of wares in the table is different from the total above!
+        </p>
+      </div>
+      <div id="delAllGoodsDiv" title="请确认操作-Please Confirm Your Operation！">
+        <p>
+          您确定要清空所有添加到该包裹列表的货物吗？
+          <br/>
+          Are you sure to clean out the wares list?
+        </p>
+      </div>
+      <div id="delGoodsDiv" title="请确认操作-Please Confirm Your Operation！">
+        <p>
+          您确定要从该包裹列表的删除这一货物吗？
+          <br/>
+          Are you sure to delete it from the wares list?
+        </p>
+      </div>
+      <div id="resultDialog" title="请确认打印-Please Confirm to print！">
+        <p></p>
+        <span id="result" style="display: none"></span>
+      </div>
+      <div id="printDialog" title="请确认打印-Please Confirm to print！">
+        <p></p>
+        <div>
+          必要时请牢记该信息，用于入库纪录查询，可以再次进行打印。<br/>
+          Remember the information above if necessary, it can be used to query inbound record and print it again.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/jquery-ui.min.js"></script>
+<script src="./js/main.js"></script>
+<script src="./js/inbound.js"></script>
+<script>
+</script>
+</body>
+</html>

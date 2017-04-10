@@ -1,0 +1,25 @@
+.personalInfo{
+    border: 0.1rem solid #d4d4d9;
+    border-radius: 0.2rem;
+    outline: none;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.8rem;
+    width:30%;
+    color:#a0a0a0;
+    height:1.0rem;
+}
+.line{
+    display: flex;
+    justify-content: space-between;
+    padding:1rem 2rem;
+}
+#nameInput{
+    position: relative;
+    left:1.4rem;
+}
+.btn{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top:22rem;
+}

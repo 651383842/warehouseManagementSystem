@@ -1,0 +1,28 @@
+.add{
+    width:1.6rem;
+    height:1.5rem;
+    position: relative;
+    top: 0.8rem;
+    left:2rem;
+}
+.queryDiv{
+    margin: 0.5rem;
+}
+#outboundCheckSpan{
+    padding-top: 0.8rem;
+}
+#ui-datepicker-div{
+    font-size: 0.8rem;
+}
+.name{
+    color: black;
+}
+.print{
+    width:1.5rem;
+    height:1.5rem;
+    position: relative;
+    top: 0.4rem;
+}
+.packetTr{
+    cursor: pointer;
+}

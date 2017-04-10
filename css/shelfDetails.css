@@ -1,8 +1,6 @@
-#mainDiv{
-    height: 95%;
+.shelfDiv{
+    height: 89%;
 }
-#main{
-    height: 95%;
-    padding-top: 0.5rem;
-    padding-left: 0.5rem;
+.button{
+    margin-bottom: 0%;
 }

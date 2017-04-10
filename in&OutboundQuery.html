@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>仓储管理 出入库查询-WarehouseManagement In&OutboundQuery</title>
+  <link href="./css/jquery-ui.css" rel="stylesheet">
+  <link href="./css/main.css" rel="stylesheet">
+  <link href="./css/chart.css" rel="stylesheet">
+  <link href="./css/query.css" rel="stylesheet">
+  <style>
+  </style>
+</head>
+<body>
+
+<div id="titleDiv">
+  <div id="title">
+    <span id="title1">仓储管理系统</span>
+    <br/>
+    <span id="title2">Warehouse Management System</span>
+  </div>
+  <img id="user" src="./img/user.png" alt="用户-User"/>
+</div>
+<div id="pageDiv">
+  <div id="barDiv">
+    <ul style="width:100%;" id="menu">
+      <li ><div class="li">首页<br/>Home</div></li>
+      <li ><div class="li">查询<br/>Query</div>
+        <ul>
+          <li><div>货物<br/>Ware</div></li>
+          <li><div>出入库<br/>In&Outbound</div></li>
+        </ul>
+      </li>
+      <li ><div class="li">入库<br/>Inbound</div></li>
+      <li ><div class="li">出库<br/>Outbound</div></li>
+      <li ><div class="li">盘点<br/>Check</div>
+        <ul>
+          <li><div>全部货架<br/>Shelf</div></li>
+          <li><div>变动空格<br/>Space</div></li>
+        </ul>
+      </li>
+      <li ><div class="li">管理<br/>Management</div>
+        <ul>
+          <li><div>货物<br/>Ware</div>
+            <ul>
+              <li><div>款式<br/>Style</div></li>
+              <li><div>颜色<br/>Color</div></li>
+              <li><div>尺码<br/>Size</div></li>
+            </ul>
+          </li>
+          <li><div>货架<br/>Shelf</div>
+            <ul>
+              <li><div>数目<br/>Count</div></li>
+              <li><div>容量<br/>Capacity</div></li>
+            </ul>
+          </li>
+          <li><div>人员<br/>Staff</div>
+            <ul>
+              <li><div>库管<br/>Keeper</div></li>
+              <li><div>普通<br/>Normal</div></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div id="mainDiv">
+    <span id="word1">查询Query /  </span>
+    <span id="word2">出入库查询In&OutboundQuery </span>
+    <div id="main">
+      <div id="condition">
+        <span id="outboundCheckSpan">
+          <input id="outboundCheckbox" type="checkbox"/>
+          <label for="outboundCheckbox">查询出库纪录</label>
+        </span>
+        <form  class="info" method="post">
+          <div class="queryDiv">
+            <input id="idInput" class="name" type="text" placeholder="用户ID-UserID"/>
+            <input id="packetInput" class="select1 name" type="text" placeholder="包裹ID-PacketID"/>
+            <input id="positionInput" class="name" type="text" placeholder="包裹位置-Position"/>
+            <input id="datePicker" class="name" type="text" readonly placeholder="入库时间-InboundTime"/>
+          </div>
+        </form>
+        <button id="query">查询Query</button>
+      </div>
+      <table id="tab" >
+        <tr id="t1">
+          <td>用户ID-UserID</td>
+          <td>包裹-ID</td>
+          <td>款式-Style</td>
+          <td>尺码-Size</td>
+          <td>颜色-Color</td>
+          <td>位置-Position</td>
+          <td id="timeTd">入库时间-InboundTime</td>
+          <td>数量-Number</td>
+          <td>操作-Operation</td>
+        </tr>
+        <tr class="t2 packetTr">
+          <td>1</td>
+          <td>102011</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>2017.4.7 15:42</td>
+          <td>35</td>
+          <td><img class="print" src="./img/print.png" alt="打印-Print"></td>
+        </tr>
+        <tr class="t2 wareTr">
+          <td>1</td>
+          <td>102011</td>
+          <td>李维斯Levis512</td>
+          <td>S</td>
+          <td>深蓝deepBlue</td>
+          <td>A101</td>
+          <td>2017.4.7 15:42</td>
+          <td>35</td>
+          <td></td>
+        </tr>
+        <tr class="t2 packetTr">
+          <td>2</td>
+          <td>102012</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>2017.4.7 15:42</td>
+          <td>35</td>
+          <td><img class="print" src="./img/print.png" alt="打印-Print"></td>
+        </tr>
+        <tr class="t2 wareTr">
+          <td>2</td>
+          <td>102012</td>
+          <td>李维斯Levis520</td>
+          <td>S</td>
+          <td>红red</td>
+          <td>A101</td>
+          <td>2017.4.7 15:35</td>
+          <td>35</td>
+          <td></td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/jquery-ui.min.js"></script>
+<script src="./js/main.js"></script>
+<script src="./js/In&OutboundQuery.js"></script>
+<script>
+
+</script>
+</body>
+</html>

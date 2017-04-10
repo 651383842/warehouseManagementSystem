@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <title>仓储管理 盘点货架-WarehouseManagement CheckShelf</title>
+    <link href="./css/jquery-ui.css" rel="stylesheet"/>
+    <link href="./css/main.css" rel="stylesheet"/>
+    <link href="css/chart.css" rel="stylesheet"/>
+    <style>
+    </style>
+</head>
+<body>
+
+<div id="titleDiv">
+    <div id="title">
+        <span id="title1">仓储管理系统</span>
+        <br/>
+        <span id="title2">Warehouse Management System</span>
+    </div>
+    <img id="user" src="./img/user.png" alt="用户"/>
+</div>
+<div id="pageDiv">
+    <div id="barDiv">
+        <ul style="width:100%;" id="menu">
+            <li ><div class="li">首页<br/>Home</div></li>
+            <li ><div class="li">查询<br/>Query</div>
+                <ul>
+                    <li><div>货物<br/>Ware</div></li>
+                    <li><div>出入库<br/>In&Outbound</div></li>
+                </ul>
+            </li>
+            <li ><div class="li">入库<br/>Inbound</div></li>
+            <li ><div class="li">出库<br/>Outbound</div></li>
+            <li ><div class="li">盘点<br/>Check</div>
+                <ul>
+                    <li><div>全部货架<br/>Shelf</div></li>
+                    <li><div>变动空格<br/>Space</div></li>
+                </ul>
+            </li>
+            <li ><div class="li">管理<br/>Management</div>
+                <ul>
+                    <li><div>货物<br/>Ware</div>
+                        <ul>
+                            <li><div>款式<br/>Style</div></li>
+                            <li><div>颜色<br/>Color</div></li>
+                            <li><div>尺码<br/>Size</div></li>
+                        </ul>
+                    </li>
+                    <li><div>货架<br/>Shelf</div>
+                        <ul>
+                            <li><div>数目<br/>Count</div></li>
+                            <li><div>容量<br/>Capacity</div></li>
+                        </ul>
+                    </li>
+                    <li><div>人员<br/>Staff</div>
+                        <ul>
+                            <li><div>库管<br/>Keeper</div></li>
+                            <li><div>普通<br/>Normal</div></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div id="mainDiv">
+        <span id="word1">盘点Check /  </span>
+        <span id="word2">全部货架Shelf</span>
+        <div id="main">
+            <br/>
+
+            <table id="tab" >
+                <tr id="t1">
+                    <td>序号-No</td>
+                    <td>货架名称-Name</td>
+                    <td>已使用量-Used/货架上限-Max</td>
+                    <td>详情-Detail</td>
+                    <td>打印-Print</td>
+                </tr>
+                <tr class="t2">
+                    <td>1</td>
+                    <td>A101</td>
+                    <td>1000/3780</td>
+                    <td id="deta1" type="button"><a href="./shelfDetails.html"><img id="detail" src="./img/detail.png" alt="详情-Detail"></a></td>
+                    <td id="del1" type="button"><img id="print" src="./img/print.png" alt="打印-Print"></td>
+                </tr>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/jquery-ui.min.js"></script>
+<script src="./js/main.js"></script>
+
+<script>
+</script>
+</body>
+</html>

@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8"/>
   <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-  <title>仓储管理 货架容量-WarehouseManagement ShelfCapacity)</title>
+  <title>仓储管理 首页-WarehouseManagement Home</title>
   <link href="./css/jquery-ui.css" rel="stylesheet"/>
   <link href="./css/main.css" rel="stylesheet"/>
-  <link href="css/shelfCapacity.css" rel="stylesheet"/>
+  <link href="./css/home.css" rel="stylesheet"/>
   <style></style>
 </head>
 <body>
@@ -26,7 +26,7 @@
       <li ><div class="li">查询<br/>Query</div>
         <ul>
           <li><div>货物<br/>Ware</div></li>
-          <li><div>入库<br/>Inbound</div></li>
+          <li><div>出入库<br/>In&Outbound</div></li>
         </ul>
       </li>
       <li ><div class="li">入库<br/>Inbound</div></li>
@@ -64,56 +64,31 @@
   </div>
 
   <div id="mainDiv">
-    <span id="word1">管理Manege / 货架Shelf / </span>
-    <span id="word2">货架容量Shelf Capacity</span>
+    <span id="word2">首页Index</span>
     <div id="main">
-      <span id="selectSpan">
-        选择货架-Select Shelf：
-        <select id="shelfSelect">
-          <option selected disabled></option>
-        </select>
-        <button class="button" id="ex-shelfButton">货架扩容-Shelf Expansion</button>
-      </span>
-      <div class="shelfDiv">
-        <table class="shelfTable">
-          <tr>
-            <td>1</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-          </tr>
-        </table>
-      </div>
-      <div class="footDiv">
-        <span class="footSpan"></span>
-        <span class="footSpan"></span>
-      </div>
-      <div id="dialogDiv" title="货架扩容-Shelf Expansion">
-        <span class="inputSpan">
-        扩展列数-Extended Clo：<input id="cloInput" type="text" placeholder="1"/>
-        </span>
-        <span class="inputSpan">
-        空格容量-Space Capacity：<input id="spaceInput" type="text" placeholder="35"/>
-        </span>
-      </div>
-      <div id="packetDiv" title="空格详情-Space Details">
-        <table class="packetTable">
-        </table>
-      </div>
-  </div>
+    <span id="dataSpan">
+       时间区间-Time Period：
+      <input type="text" id="datePicker1" readonly/>
+      -
+      <input type="text" id="datePicker2" readonly/>
+      <button id="submit" class="button">确定Submit</button>
+    </span>
+    <div id="areaSplineDiv" class="chart" ></div>
+    <div id="chartDiv">
+      <div id="pieChartDiv" class="chart"></div>
+      <div id="barChartDiv" class="chart"></div>
+    </div>
+    </div>
   </div>
 </div>
 
 <script src="./js/jquery.js"></script>
 <script src="./js/jquery-ui.min.js"></script>
+<script src="./js/highcharts.js"></script>
+<script src="./js/exporting.js"></script>
+<!--<script src="./js/highcharts-zh_CN.js"></script>-->
 <script src="./js/main.js"></script>
-<script src="./js/shelfCapacity.js"></script>
+<script src="./js/home.js"></script>
 <script>
 </script>
 </body>

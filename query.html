@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <title>仓储管理 货物查询-WarehouseManagement WareQuery</title>
+    <link href="./css/jquery-ui.css" rel="stylesheet"/>
+    <link href="./css/main.css" rel="stylesheet"/>
+    <link href="css/chart.css" rel="stylesheet"/>
+    <link href="css/query.css" rel="stylesheet"/>
+    <link href="css/wareQuery.css" rel="stylesheet"/>
+    <style>
+    </style>
+</head>
+<body>
+
+<div id="titleDiv">
+    <div id="title">
+        <span id="title1">仓储管理系统</span>
+        </br>
+        <span id="title2">Warehouse Management System</span>
+    </div>
+    <img id="user" src="./img/user.png" alt="用户-User"/>
+</div>
+<div id="pageDiv">
+    <div id="barDiv">
+        <ul style="width:100%;" id="menu">
+            <li ><div class="li">首页<br/>Home</div></li>
+            <li ><div class="li">查询<br/>Query</div>
+                <ul>
+                    <li><div>货物<br/>Ware</div></li>
+                    <li><div>出入库<br/>In&Outbound</div></li>
+                </ul>
+            </li>
+            <li ><div class="li">入库<br/>Inbound</div></li>
+            <li ><div class="li">出库<br/>Outbound</div></li>
+            <li ><div class="li">盘点<br/>Check</div>
+                <ul>
+                    <li><div>全部货架<br/>Shelf</div></li>
+                    <li><div>变动空格<br/>Space</div></li>
+                </ul>
+            </li>
+            <li ><div class="li">管理<br/>Management</div>
+                <ul>
+                    <li><div>货物<br/>Ware</div>
+                        <ul>
+                            <li><div>款式<br/>Style</div></li>
+                            <li><div>颜色<br/>Color</div></li>
+                            <li><div>尺码<br/>Size</div></li>
+                        </ul>
+                    </li>
+                    <li><div>货架<br/>Shelf</div>
+                        <ul>
+                            <li><div>数目<br/>Count</div></li>
+                            <li><div>容量<br/>Capacity</div></li>
+                        </ul>
+                    </li>
+                    <li><div>人员<br/>Staff</div>
+                        <ul>
+                            <li><div>库管<br/>Keeper</div></li>
+                            <li><div>普通<br/>Normal</div></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div id="mainDiv">
+        <span id="word1">查询Query /  </span>
+        <span id="word2">货物查询WareQuery</span>
+        <div id="main">
+            <div id="condition">
+                <span id="outboundCheckSpan">
+                    <input id="outboundCheckbox" type="checkbox"/>
+                    <label for="outboundCheckbox">查询已出库货物</label>
+                </span>
+                <span id="del1" type="button"><img class="add" src="./img/add.png" alt="添加Add"></span>
+                <form  class="info" method="post">
+                    <div class="queryDiv">
+                    <input class="name" type="text" placeholder="包裹ID-PacketID"/>
+                        <select class="select1">
+                            <option selected = "selected">款式-Style</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                        <select>
+                            <option selected = "selected">颜色-Color</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                        <select>
+                            <option selected = "selected">尺码-Size</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                </form>
+            <button id="query">查询Query</button>
+            </div>
+                <table id="tab" >
+                <tr id="t1">
+                    <td>序号-No</td>
+                    <td>包裹-ID</td>
+                    <td>款式-Style</td>
+                    <td>尺码-Size</td>
+                    <td>颜色-Color</td>
+                    <td>位置-Position</td>
+                    <td id="timeTd">入库时间-InboundTime</td>
+                    <td>数量-Number</td>
+                </tr>
+                <tr class="t2">
+                    <td>1</td>
+                    <td>102011</td>
+                    <td>李维斯512</td>
+                    <td>S</td>
+                    <td>深蓝</td>
+                    <td>A101</td>
+                    <td>2017.4.7 15:35</td>
+                    <td>10</td>
+                </tr>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/jquery-ui.min.js"></script>
+<script src="./js/main.js"></script>
+<script src="./js/query.js"></script>
+<script>
+
+</script>
+</body>
+</html>

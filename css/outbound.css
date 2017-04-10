@@ -1,0 +1,57 @@
+#out{
+    color: white;
+    background-color: #49a9ee ;
+    border: none;
+    border-radius: 0.2rem;
+    height: 2rem;
+    position: relative;
+    margin-right: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+#tab{
+
+}
+#condition2{
+   display: flex;
+    justify-content: space-between;
+    padding:0.5rem 2rem;
+}
+#mainDiv{
+
+}
+#tab2{
+    border: solid #ecf6fd thin;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    height:2.5rem;
+    width:95%;
+    position: relative;
+    left:2.5%;
+    right:2.5%;
+    text-align: center;
+
+}
+#t2{
+    border: solid #ecf6fd thin;
+    border-collapse: collapse;
+    background-color: #ecf6fd;
+    font-size: 0.9rem;
+    line-height:2.5rem;
+    width:95%;
+    position: relative;
+    left:2.5%;
+    right:2.5%;
+    text-align: center;
+}
+.t2{
+    border: solid #ecf6fd thin;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    line-height:2.5rem;
+    width:95%;
+    position: relative;
+    left:2.5%;
+    right:2.5%;
+    text-align: center;
+}

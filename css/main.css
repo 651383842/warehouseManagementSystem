@@ -2,6 +2,16 @@
 img {
   cursor: pointer;
 }
+button{
+  cursor: pointer;
+  color: white;
+  background-color: #49a9ee ;
+  border: none;
+  border-radius: 0.2rem;
+  width: 5rem;
+  height: 2rem;
+  min-width: 5rem;
+}
 html{
   font-size: 100%;
   height: 100%;
@@ -48,9 +58,6 @@ div{
   top:1.5rem;
   margin-right:2rem;
 }
-#container{
-  border: thin solid;
-}
 
 #pageDiv{
   border: #ecf6fd thin solid;
@@ -77,9 +84,8 @@ li{
   text-align: center;
 }
 .li{
-  height:2rem;
+  height:2.5rem;
 }
-
 #mainDiv{
   border: #ecf6fd thin solid;
   width: 90%;
@@ -113,7 +119,7 @@ li{
   z-index: 5;
 }
 .shelfTable{
-  border: 0.5rem solid cornflowerblue;
+  border: 0.5rem solid #49a9ee;
   border-spacing: 0;
   border-radius: 0.5rem;
   table-layout: fixed;
@@ -124,8 +130,8 @@ li{
   z-index: 10;
 }
 .shelfTable td{
-  border: thin solid cornflowerblue;
-  box-shadow: 0 0 0.2rem 0 cornflowerblue inset;
+  border: thin solid #49a9ee;
+  box-shadow: 0 0 0.2rem 0 #49a9ee inset;
   width: 10rem;
 }
 .shelfTable td:hover{
@@ -139,7 +145,7 @@ li{
 .footSpan{
   height: 1.6rem;
   width: 5rem;
-  background-color: cornflowerblue;
+  background-color: #49a9ee;
   box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem grey;
   position: relative;
   bottom: 0.5rem;
@@ -189,4 +195,25 @@ li{
 }
 .ui-selectmenu-menu{
   font-size: 0.8rem;
+}
+select{
+  border: 0.1rem solid #d4d4d9;
+  border-radius: 0.7rem;
+  outline: none;
+  padding: 0.3rem 0.5rem;
+  margin: 0.1rem;
+  font-size: 0.8rem;
+  width:8rem;
+  margin-left: 0.5rem;
+}
+.button{
+  color: white;
+  background-color: #49a9ee ;
+  border: none;
+  border-radius: 0.2rem;
+  height: 2rem;
+  position: relative;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
