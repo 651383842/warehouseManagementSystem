@@ -63,12 +63,12 @@ $(function () {
 					}
 					$(this).find(".usedSpan").text(position);
 					$(this).find(".usedSpan").css({"display":"flex","align-items":"flex-end","color":"blue"});
-					if($(this).find(".fractionSpan").html() == num+"<br/>|<br/>"+(35-num)){
-						if(num > 12) {
+					if($(this).find(".fractionSpan").html() == num+"<br>|<br>"+(35-num)){
+						if(num > 27) {
 							$(this).find(".usedSpan").css("background-color","#3dbd7d");
-						}else if(num > 0){
+						}else if(num > 7){
 							$(this).find(".usedSpan").css("background-color","#ffbf00");
-						}else if(num < 1 ){
+						}else{
 							$(this).find(".usedSpan").css("background-color","#f46e65");
 						}
 					}

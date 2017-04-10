@@ -252,12 +252,12 @@ $(function () {
 						}
 						$(this).find(".usedSpan").text(position);
 						$(this).find(".usedSpan").css({"display":"flex","align-items":"flex-end","color":"blue"});
-						if($(this).find(".fractionSpan").html() == num+"<br/>|<br/>"+(35-num)){
-							if(num > 12) {
+						if($(this).find(".fractionSpan").html() == num+"<br>|<br>"+(35-num)){
+							if(num > 27) {
 								$(this).find(".usedSpan").css("background-color","#3dbd7d");
-							}else if(num > 0){
+							}else if(num > 7){
 								$(this).find(".usedSpan").css("background-color","#ffce3d");
-							}else if(num < 1 ){
+							}else{
 								$(this).find(".usedSpan").css("background-color","#f46e65");
 							}
 						}
@@ -306,12 +306,12 @@ $(function () {
 							}
 							$(this).find(".usedSpan").text(position);
 							$(this).find(".usedSpan").css({"display":"flex","align-items":"flex-end","color":"blue"});
-							if($(this).find(".fractionSpan").html() == num+"<br/>|<br/>"+(35-num)){
-								if(num > 12) {
+							if($(this).find(".fractionSpan").html() == num+"<br>|<br>"+(35-num)){
+								if(num > 27) {
 									$(this).find(".usedSpan").css("background-color","#3dbd7d");
-								}else if(num > 0){
+								}else if(num > 7){
 									$(this).find(".usedSpan").css("background-color","#ffce3d");
-								}else if(num < 1 ){
+								}else{
 									$(this).find(".usedSpan").css("background-color","#f46e65");
 								}
 							}
@@ -438,7 +438,7 @@ $(function () {
 		]
 	});
 
-	/*$.ajax({
+	$.ajax({
 		type: "POST",
 		url: "./testPhp/readjson.php",
 		dataType: "json",
@@ -447,7 +447,7 @@ $(function () {
 		success: function (res) {
 			var n = 0;
 			selectList = res;
-			/!*for(var key in selectList.inboundSelect.supplier){
+			/*for(var key in selectList.inboundSelect.supplier){
 				suppliers[n] = key;
 				n++;
 			}
@@ -459,7 +459,7 @@ $(function () {
 			}
 			for(var i = 0;i < selectList.inboundSelect.size.length;i++) {
 				$("#sizeSelect").append("<option>"+selectList.inboundSelect.size[i]+"</option>")
-			}*!/
+			}*/
 			for(var i = 0;i < selectList.length;i++) {
 				$("#supplierSelect").append("<option>"+suppliers[i]+"</option>");
 			}
@@ -483,6 +483,6 @@ $(function () {
 			}
 			n++;
 		}
-	});*/
+	});
 
 });
