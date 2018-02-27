@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+  <title>仓储管理 出库打印-WarehouseManagement OutboundPrint</title>
+  <link href="./css/jquery-ui.css" rel="stylesheet"/>
+  <link href="./css/main.css" rel="stylesheet"/>
+  <link href="css/jquery.shCircleLoader.css" rel="stylesheet"/>
+  <style media=print>
+    .noPrint{
+      display:none;
+    }
+    .pageNext{page-break-after: always;}
+  </style>
+  <style>
+    html{
+      text-align: center;
+      font-size: 16px;
+    }
+    body{
+      height: 100%;
+    }
+    #shclDefault{
+      position: relative;
+      top: 50%;
+      left: 45%;
+      z-index: 1000;
+      width: 7rem;
+      height: 7rem;
+      color: #49a9ee;
+    }
+    #operationDiv{
+      margin: 1rem;
+    }
+    .printDiv{
+      text-align: left;
+      border: thin solid black;
+      margin-top: 1rem;
+    }
+    .packetID{
+      font-size: 3rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    .packetTable{
+      border: thin solid black;
+      border-collapse: collapse;
+      font-size: 1rem;
+      text-align: center;
+      width: 100%;
+    }
+    .packetTable td{
+      border: thin solid black;
+      height: 1rem;
+    }
+    .bottomDiv{
+      width: 100%;
+      display: flex;
+    }
+    .bottom{
+      width: 50%;
+    }
+    #headTr{
+      border: thin solid black;
+      text-align: center;
+    }
+    .goodsTr{
+      border: thin solid black ;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div id="operationDiv" class="noPrint">
+  <button onclick="window.print()">打印</button>
+  <div id="loadingDialog" title="提示-Tips!">
+    <div id="shclDefault"></div>
+    <span></span>
+  </div>
+</div>
+
+<div class="bottomDiv">
+  <p class="bottom">有无异常-Whether abnormal：</p>
+  <p class="bottom">检查人-Inspector name：</p>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="./js/jquery-3.2.1.min.js"><\/script>')</script>
+
+<script src="http://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>!window.jQuery.ui && document.write('<script src="./js/jquery-ui.min.js"><\/script>')</script>
+<script src="js/main.js"></script>
+<script src="./js/jquery.shCircleLoader-min.js"></script>
+<script>
+  $(function(){
+      $( "#loadingDialog" ).dialog({
+        autoOpen: false,
+        width: 400,
+        modal:true,
+        closeOnEscape: false,
+        dialogClass: "no-close"
+      });
+
+      $( "#loadingDialog" ).find("span").html("打印生成中，请稍等-Print is creating，please wait ......<br>注意：包裹较多时可能需要较长时间，请耐心等候！<br>Warn: the print information may too much to create in short time, please wait patiently!");
+      $( "#loadingDialog" ).dialog("open");
+      $('#shclDefault').shCircleLoader();
+
+      var outPackTable = localStorage.getItem("outPackTable");
+      var total = 0;
+
+      $(".bottomDiv").before("<div class='printDiv'> " +
+          "<p style='display: flex;justify-content: space-around'><span>UserId：" + localStorage.getItem("outUsername") +"</span> <span>Outbound：" + localStorage.getItem("outboundTime") +"</span></p>" +
+          "<table class='packetTable'></table><p></p></div>");
+      $(".packetTable").html(outPackTable);
+
+      if($("#t2Automatic").length > 0){
+          $(".t2Automatic").each(function () {
+              total += parseInt($(this).find("td").eq(12).html());
+          });
+          $(".packetTable").last().find("tr").last().after("<tr>" +
+              "<td>总计-Total</td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td>" + total + "</td><td></td></tr>");
+          $(".packetTable").find("tr").css("background-color", "white");
+          $("#loadingDialog").dialog("close");
+      }else {
+          $(".t2").each(function () {
+              total += parseInt($(this).find("td").eq(12).html());
+          });
+          $(".packetTable").last().find("tr").last().after("<tr>" +
+              "<td>总计-Total</td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td>" + total + "</td><td></td></tr>");
+          $(".packetTable").find("tr").css("background-color", "white");
+          $("#loadingDialog").dialog("close");
+      }
+  });
+
+
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-/*----------------------初始化设置-----------------------*/
+/*--------------------------------------------*/
 img {
   cursor: pointer;
 }
@@ -15,7 +15,7 @@ html{
   font-size: 100%;
   height: 100%;
   width: 100%;
-  /*总字体设置*/
+  display: none;
   font-family: 微软雅黑;
 }
 body{
@@ -26,7 +26,7 @@ body{
 div{
   margin: 0;
 }
-/*-------------------------区块设置---------------------------*/
+/*----------------------------------------------------*/
 #titleDiv{
   border:#49a9ee thin solid;
   width: 99.9%;
@@ -54,10 +54,16 @@ div{
   width:2rem;
   height:2rem;
   position: relative;
-  top:1.5rem;
+  top:0.7rem;
   margin-right:2rem;
 }
-
+#logout{
+  width:2rem;
+  height:2rem;
+  position: relative;
+  top: 0.7rem;
+  right: 1rem;
+}
 #pageDiv{
   border: #ecf6fd thin solid;
   width: 99.9%;
@@ -75,6 +81,7 @@ div{
 #menu{
   background-color:white;
   border:white thin solid;
+  display: none;
 }
 li{
   background-color:white;
@@ -90,7 +97,7 @@ li{
   width: 90%;
   height:94%;
   padding: 0.5rem;
-  overflow: auto;
+  overflow: hidden;
   margin:0.5rem 0.2rem;
 }
 #word1{
@@ -109,6 +116,7 @@ li{
   height:96%;
   width:100%;
   background-color: white;
+  overflow: auto;
 }
 .shelfDiv{
   height: 90%;
@@ -132,6 +140,7 @@ li{
   border: thin solid #49a9ee;
   box-shadow: 0 0 0.2rem 0 #49a9ee inset;
   width: 10rem;
+  height:5.5rem;
 }
 .shelfTable td:hover{
   border: thin solid yellow;
@@ -158,7 +167,7 @@ li{
 }
 .packetTable td{
   border: thin solid;
-  padding: 0.5rem;
+  padding: 0.2rem;
 }
 .useDiv{
   height: 100%;
@@ -174,7 +183,7 @@ li{
 
 }
 .usedSpan{
-  background-color: orange;
+  background-color: white;
 }
 .inputSpan{
   display: block;
@@ -215,4 +224,18 @@ select{
   margin-left: 0.5rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+.infoSpan{
+  margin-left:2rem;
+}
+.ui-widget-overlay{
+  background-image: none;
+  background-color: #f3f3f3;
+}
+.select2-selection__rendered{
+  font-size: 0.8rem;
+}
+.select2-selection--single{
+  position: relative;
+  bottom: 0.1rem;
 }

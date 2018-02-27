@@ -1,45 +1,1268 @@
 /**
  * Created by jessicababy on 2017/4/9.
  */
-$( "#menu" ).menu();
+//菜单
+var idInput = false;
+var username = null;//用户
+var loading = false;
 
-$( "#dialog" ).dialog({
+$( "#tabs" ).tabs();
+
+function isOverTime() {
+    if(loading){
+        loading = false;
+        $("#loadingDialog").dialog("close");
+        $("#tipDiv").find("p").html("请求超时！可尝试刷新页面。<br>Overtime！Please refresh and reload");
+        $("#tipDiv").dialog("open");
+    }
+}
+function removeSpaces(str,type){
+    if(type == 1){
+        str = str.replace(/(^\s+)|(\s+$)/g,"");
+    }else if(type == 2){
+        str = str.replace(/\s/g,"");
+    } else{
+        str = str.replace(/(^\s+)|(\s+$)/g,"");
+        str = str.replace(/(^\s{2,})|(\s{2,}$)|(\s{2,})/g," ");
+    }
+    return str;
+}
+
+function colorChange() {
+    $("#tab tr:odd").css("background-color", "white");
+    $("#tab tr:even").css("background-color", "#f3f3f3");
+    $("#t1").css("background-color","#ecf6fd");
+    $("#tab2 tr:odd").css("background-color", "white");
+    $("#tab2 tr:even").css("background-color", "#f3f3f3");
+    $("#t2").css("background-color","#ecf6fd");
+    $("#tabAutomatic tr:odd").css("background-color", "white");
+    $("#tabAutomatic tr:even").css("background-color", "#f3f3f3");
+    $("#t1Automatic").css("background-color","#ecf6fd");
+    $("#tab2Automatic tr:odd").css("background-color", "white");
+    $("#tab2Automatic tr:even").css("background-color", "#f3f3f3");
+    $("#t2Automatic").css("background-color","#ecf6fd");
+}
+
+function isNull(data){
+    if(data == "null"){
+        return null;
+    }else{
+        return data;
+    }
+}
+
+$(".autoModelNoSelect").select2({width: "9rem"});
+$(".modelNoSelect").select2({width: "9rem"});
+
+$.ajax({
+    type: "POST",
+    url: "/getUserInfomation",
+    dataType: "json",
+    data: {
+    },
+    success: function (res) {
+        console.log(res);
+        username = res.UserInfomation.username;
+    },
+    error: function (e) {
+        $("#tipDiv").find("p").html("连接失败，请重试！<br>Connect failed! Please retry!");
+        $("#tipDiv").dialog("open");
+    }
+});
+
+$("#packetIdInput").on('input propertychange', function(){
+    if($(this).val() != ""){
+        idInput = true;
+        $("select").each(function() {
+            $(this).attr("disabled",true);
+        });
+    }else{
+        idInput = false;
+        $("select").each(function() {
+            $(this).attr("disabled",false);
+        });
+    }
+});
+
+$("#add").find(".add").click(function (){
+    if(!idInput) {
+        try{
+            $(".modelNoSelect").each(function(){
+                $(this).select2("destroy");
+            });
+        }catch (e){}
+        $("#condition").find("div").last().after($(".queryDiv").last().clone(true));
+        $(".queryDiv").last().find("select").each(function(){
+            $(this).val("null");
+        });
+        $(".modelNoSelect").select2({width: "9rem"});
+    }
+});
+
+$("#addAutomatic").click(function (){
+    try{
+        $(".autoModelNoSelect").each(function(){
+            $(this).select2("destroy");
+        });
+    }catch (e){}
+    $("#conditionAutomatic").find("div").last().after($("#conditionAutomatic").find(".queryDiv").last().clone(true));
+    $("#conditionAutomatic").find(".queryDiv").last().find("select").each(function(){
+        $(this).val("null");
+    });
+    $("#conditionAutomatic").find(".queryDiv").last().find("input").each(function(){
+        $(this).val("");
+    });
+    $(".autoModelNoSelect").select2({width: "9rem"});
+});
+
+//全选
+$("#checkAll").on("click", function () {
+    if($("#checkAll").is(":checked")) {
+        $("[name = chkItem]:checkbox").prop("checked", true);
+        $("[name = chkItem]:checkbox").parent().parent().css("color","red");
+    }
+    else{
+        $("[name = chkItem]:checkbox").prop("checked", false);
+        $("[name = chkItem]:checkbox").parent().parent().css("color","black");
+    }
+
+    var isChecked = false;
+    $("[name = chkItem]:checkbox").each(function () {
+        if($(this).is(":checked")){
+            isChecked = true;
+        }
+    });
+    if(!isChecked){
+        $("#addBtn").attr('disabled',true);
+        $("#addBtn").css("background-color","grey");
+    }else{
+        $("#addBtn").attr('disabled',false);
+        $("#addBtn").css("background-color"," #49a9ee ");
+    }
+});
+
+$("#checkAll2").on("click", function () {
+    if($("#checkAll2").is(":checked")) {
+        $("[name = chkItem2]:checkbox").prop("checked", true);
+        $("[name = chkItem2]:checkbox").parent().parent().css("color","red");
+    }
+    else{
+        $("[name = chkItem2]:checkbox").prop("checked", false);
+        $("[name = chkItem2]:checkbox").parent().parent().css("color","black");
+    }
+
+    var isChecked = false;
+    $("[name = chkItem2]:checkbox").each(function () {
+        if($(this).is(":checked")){
+            isChecked = true;
+        }
+    });
+    if(!isChecked){
+        $("#empty").attr('disabled',true);
+        $("#empty").css("background-color"," grey ");
+        $("#out").attr('disabled',true);
+        $("#out").css("background-color"," grey ");
+    }else{
+        $("#empty").attr('disabled',false);
+        $("#empty").css("background-color"," #49a9ee ");
+        $("#out").attr('disabled',false);
+        $("#out").css("background-color"," #49a9ee ");
+    }
+});
+
+var supplier;
+
+$.ajax({
+    type: "POST",
+    url: "/backModuleNum",
+    dataType: "json",
+    data: {
+    },
+    success: function (res) {
+        console.log(res);
+        $(".modelNoSelect").each(function(){
+            $(this).html("<option selected value='null'>模版-Model No.</option>");
+        });
+        for(var i = 0;i < res.moduleNum.length;i++) {
+            $(".modelNoSelect").each(function(){
+                $(this).append("<option>"+res.moduleNum[i]+"</option>");
+            })
+        }
+        $(".autoModelNoSelect").each(function(){
+            $(this).html("<option selected value='null'>模版-Model No.</option>");
+        });
+        for(var i = 0;i < res.moduleNum.length;i++) {
+            $(".autoModelNoSelect").each(function(){
+                $(this).append("<option>"+res.moduleNum[i]+"</option>");
+            })
+        }
+    },
+    error: function(e) {
+    }
+});
+
+$.ajax({
+    type: "POST",
+    url: "/backDepartmentInfo",
+    dataType: "json",
+    data: {
+    },
+    success: function (res) {
+        $(".departmentSelect").each(function(){
+            $(this).html("<option selected value='null'>系列-Department</option>");
+        });
+        for(var i = 0;i < res.department.length;i++) {
+            $(".departmentSelect").each(function(){
+                $(this).append("<option>"+res.department[i]+"</option>");
+            })
+        }
+        console.log(res);
+    },
+    error: function(e) {
+    }
+});
+
+$.ajax({
+    type: "POST",
+    url: "/backBrandInfo",
+    dataType: "json",
+    data: {
+    },
+    success: function (res) {
+        $(".brandSelect").each(function(){
+            $(this).html("<option selected value='null'>品牌-Brand</option>");
+        });
+        for(var i = 0;i < res.brand.length;i++) {
+            $(".brandSelect").each(function(){
+                $(this).append("<option>"+res.brand[i]+"</option>");
+            })
+        }
+        console.log(res);
+    },
+    error: function(e) {
+        console.log("supplierError:"+e);
+    }
+});
+
+$.ajax({
+    type: "POST",
+    url: "/backFittingInfo",
+    dataType: "json",
+    data: {
+    },
+    success: function (res) {
+        $(".fittingSelect").each(function(){
+            $(this).html("<option selected value='null'>型号-Fitting</option>");
+        });
+        for(var i = 0;i < res.fitting.length;i++) {
+            $(".fittingSelect").each(function(){
+                $(this).append("<option>"+res.fitting[i]+"</option>");
+            })
+        }
+        console.log(res);
+    },
+    error: function(e) {
+    }
+});
+
+$.ajax({
+    type: "POST",
+    url: "/backProviderInfo",
+    dataType: "json",
+    data: {
+    },
+    success: function (res) {
+        $(".supplierSelect").each(function(){
+            $(this).html("<option selected value='null'>供应商-Supplier</option>");
+        });
+        for(var i = 0;i < res.provider.length;i++) {
+            $(".supplierSelect").each(function(){
+                $(this).append("<option>"+res.provider[i]+"</option>");
+            })
+        }
+        console.log(res);
+    },
+    error: function(e) {
+        console.log("supplierError:"+e);
+    }
+});
+
+$.ajax({
+    type: "POST",
+    url: "/backSizeInfo",
+    dataType: "json",
+    data: {
+    },
+    success: function (res) {
+//			selectList = JSON.parse(res);
+        $(".sizeSelect").each(function(){
+            $(this).html("<option selected value='null'>尺码-Size</option>");
+        });
+        for(var i = 0;i < res.size.length;i++) {
+            $(".sizeSelect").each(function(){
+                $(this).append("<option>"+res.size[i]+"</option>");
+            })
+        }
+        console.log(res);
+    },
+    error: function(e) {
+        console.log("sizeError:"+e);
+    }
+});
+
+$.ajax({
+    type: "POST",
+    url: "/backColourInfo",
+    dataType: "json",
+    data: {
+    },
+    success: function (res) {
+//			selectList = JSON.parse(res);
+        $(".colorSelect").each(function(){
+            $(this).html("<option selected value='null'>颜色-Color</option>");
+        });
+        for(var i = 0;i < res.colour.length;i++) {
+            $(".colorSelect").each(function(){
+                $(this).append("<option>"+res.colour[i]+"</option>");
+            })
+        }
+        console.log(res);
+    },
+    error: function(e) {
+        console.log("colorError:"+e);
+    }
+});
+
+$("#autoButton").click(function () {
+    var quantity = [];
+    var moduleNum = [];
+    for (var i = 0; i < $(".autoModelNoSelect").length; i++) {
+        var modelNo = $(".autoModelNoSelect").eq(i).val();
+        var num = removeSpaces($(".autoInput").eq(i).val(),2);
+        if(modelNo == "null"){
+            $("#tipDiv").find("p").html("模版是必选的！ <br/>The model No. must be selected!");
+            $("#tipDiv").dialog("open");
+            return;
+        }
+        if(num <= 0 || isNaN(num)){
+            $("#tipDiv").find("p").html("数量必须大于0且输入必须为数字！ <br/>The number of wares should be greater than 0 and the input should be a number!");
+            $("#tipDiv").dialog("open");
+            return;
+        }
+        moduleNum.push(modelNo);
+        num = parseInt(num);
+        quantity.push(num);
+    }
+    console.log(quantity);
+    console.log(moduleNum);
+    $("#loadingDialog").find("span").html("推荐中，请稍等-Recommending，please wait ......");
+    $("#loadingDialog").dialog("open");
+    $('#shclDefault').shCircleLoader();
+    loading = true;
+    window.setInterval(isOverTime, 600000);
+    $.ajax({
+        type: "POST",
+        url: "/OutHouse/SmartOut",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify({
+            "quantity": quantity,
+            "moduleNum": moduleNum
+        }),
+        success: function (res) {
+            console.log(res);
+            loading = false;
+            $("#loadingDialog").dialog("close");
+            $("#tabAutomatic").find(".t1Automatic").remove();
+            if (res.wares.length == 0) {
+                $("#resDialog").dialog("open");
+            } else {
+                $("#addBtnAutomatic").attr('disabled',false);
+                $("#addBtnAutomatic").css("background-color"," #49a9ee ");
+                for (var i = 0; i < res.wares.length; i++) {
+                    var n = i + 1;
+                    var packetId = res.wares[i].packageID;
+                    var modelNo = res.wares[i].moduleNum;
+                    var department = res.wares[i].department;
+                    var brand = res.wares[i].brand;
+                    var fitting = res.wares[i].fitting;
+                    var provider = res.wares[i].provider;
+                    var size = res.wares[i].size;
+                    var color = res.wares[i].colour;
+                    var position = res.wares[i].positionInfo.substring(0, 2) + "-" + res.wares[i].positionInfo.substring(2, 5);
+                    var number = res.wares[i].OutNum;
+                    var jeansID = res.wares[i].jeansID;
+                    var rest = res.wares[i].ResidueNum;
+                    $("#tabAutomatic").append("<tr class='t1Automatic'>" +
+                        "<td>" + n + "</td>" +
+                        "<td>" + packetId + "</td>" +
+                        "<td>" + modelNo + "</td>" +
+                        "<td>" + department + "</td>" +
+                        "<td>" + brand + "</td>" +
+                        "<td>" + fitting + "</td>" +
+                        "<td>" + provider + "</td>" +
+                        "<td>" + size + "</td>" +
+                        "<td>" + color + "</td>" +
+                        "<td>" + position + "</td>" +
+                        "<td>" + number + "</td>" +
+                        "<td style='display: none'>" + jeansID + "</td>" +
+                        "<td style='display: none'>" + rest + "</tr>")
+                }
+                colorChange();
+            }
+        },
+        error: function(e) {
+            loading = false;
+            $("#loadingDialog").dialog("close");
+            $("#tipDiv").find("p").html("连接失败，请重试！<br>Connect failed! Please retry!");
+            $("#tipDiv").dialog("open");
+        }
+    });
+});
+
+//查询显示在表格内
+$("#queryBtn").click(function(){
+    var isAtLeastOne = false;
+    var nameList = [];
+    var nameListLength = $(".supplierSelect").length;
+    var packetId = removeSpaces($("#packetIdInput").val(),2);
+    if((packetId != "" && packetId.length != 8) || isNaN(packetId)){
+        $("#longDialog").dialog( "open" );
+    }else{
+        for(var i = 0;i < nameListLength;i++){
+            var moduleNum = isNull($(".modelNoSelect").eq(i).val());
+            var department = isNull($(".departmentSelect").eq(i).val());
+            var brand = isNull($(".brandSelect").eq(i).val());
+            var fitting = isNull($(".fittingSelect").eq(i).val());
+            var supplier = isNull($(".supplierSelect").eq(i).val());
+            var color = isNull($(".colorSelect").eq(i).val());
+            var size = isNull($(".sizeSelect").eq(i).val());
+            nameList.push({"provider": supplier, "colour": color, "size": size,"fitting": fitting, "department": department, "brand": brand,"moduleNum": moduleNum});
+            if(isNull($(".modelNoSelect").eq(i).val()) != null || isNull($(".departmentSelect").eq(i).val()) != null || isNull($(".brandSelect").eq(i).val()) != null || isNull($(".fittingSelect").eq(i).val()) != null || isNull($(".supplierSelect").eq(i).val()) != null || isNull($(".colorSelect").eq(i).val()) != null || isNull($(".sizeSelect").eq(i).val()) != null){
+                isAtLeastOne = true;
+            }
+        }
+        console.log(nameList);
+        if(packetId != ""){
+            isAtLeastOne = true;
+        }
+        if(!isAtLeastOne){
+            $("#tipDiv").find("p").html("至少需要一个查询条件！<br>It needs at least one query condition!");
+            $("#tipDiv").dialog("open");
+        }else {
+            $("#loadingDialog").find("span").html("查询中，请稍等-Querying，please wait ......");
+            $("#loadingDialog").dialog("open");
+            $('#shclDefault').shCircleLoader();
+            loading = true;
+            window.setInterval(isOverTime, 600000);
+            $.ajax({
+                type: "POST",
+                url: "/query/OutBoundInfo",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({
+                    "conditions": nameList,
+                    "station": false,
+                    "packageId": packetId
+                }),
+                success: function (res) {
+                    loading = false;
+                    $("#loadingDialog").dialog("close");
+                    console.log(res);
+                    $("#tab").find(".t1").remove();
+                    if (res.wares.length == 0) {
+                        $("#tab").find(".t1").remove();
+                        $("#resDialog").dialog("open");
+                    } else {
+                        $("#checkAll").prop("checked", false);
+                        for (var i = 0; i < res.wares.length; i++) {
+                            var n = i + 1;
+                            var packetId = res.wares[i].packageID;
+                            var modelNo = res.wares[i].moduleNum;
+                            var department = res.wares[i].department;
+                            var brand = res.wares[i].brand;
+                            var fitting = res.wares[i].fitting;
+                            var provider = res.wares[i].provider;
+                            var size = res.wares[i].size;
+                            var color = res.wares[i].colour;
+                            var position = res.wares[i].positionInfo.substring(0,2)+"-"+res.wares[i].positionInfo.substring(2,5);
+                            var number = res.wares[i].nowNum;
+                            var jeansID = res.wares[i].jeansID;
+                            $("#tab").append("<tr class='t1'>" +
+                                "<td>" + n + "</td>" +
+                                "<td>" + packetId + "</td>" +
+                                "<td>" + modelNo + "</td>" +
+                                "<td>" + department + "</td>" +
+                                "<td>" + brand + "</td>" +
+                                "<td>" + fitting + "</td>" +
+                                "<td>" + provider + "</td>" +
+                                "<td>" + size + "</td>" +
+                                "<td>" + color + "</td>" +
+                                "<td>" + position + "</td>" +
+                                "<td>" + number + "</td>" +
+                                "<td style='display: none'>" + jeansID + "</td>"+
+                                "<td ><input name='chkItem' type='checkbox'></td></tr>")
+                        }
+                        //有了查询结果后 便可以加入购物车 按钮可用状态
+                        // $("#addBtn").attr('disabled',false);
+                        // $("#addBtn").css("background-color"," #49a9ee ");
+                        $("[name = chkItem]:checkbox").on("click", function () {
+                            var isChecked = false;
+                            $("[name = chkItem]:checkbox").each(function () {
+                                if ($(this).is(":checked")) {
+                                    isChecked = true;
+                                }
+                            });
+                            if (!isChecked) {
+                                $("#addBtn").attr('disabled', true);
+                                $("#addBtn").css("background-color", "grey");
+                            } else {
+                                $("#addBtn").attr('disabled', false);
+                                $("#addBtn").css("background-color", " #49a9ee ");
+                            }
+
+                            var allCheck = true;
+                            $("[name = chkItem]:checkbox").each(function () {
+                                if(!$(this).is(":checked")) {
+                                    allCheck = false;
+                                }
+                            });
+                            if(allCheck){
+                                $("#checkAll").prop("checked", true);
+                            }else{
+                                $("#checkAll").prop("checked", false);
+                            }
+
+                            if ($(this).is(":checked")) {
+                                $(this).parent().parent().css("color","red");
+                            }else{
+                                $(this).parent().parent().css("color","black");
+                            }
+                        });
+                        colorChange();
+                    }
+                },
+                error: function (e) {
+                    loading = false;
+                    $("#loadingDialog").dialog("close");
+                    $("#tipDiv").find("p").html("连接失败，请重试！<br>Connect failed! Please retry!");
+                    $("#tipDiv").dialog("open");
+                }
+            });
+        }
+    }
+    });
+
+$("#packetIdInput").keydown(function(event) {
+    if (event.keyCode == "13") {//keyCode=13是回车键
+        $('#queryBtn').click();
+    }
+});
+
+$(".modelNoSelect").change(function(){
+    var modelNo = $(this).val();
+    //var myThis = $(this);
+    var index = $(this).parent().index();
+    if(modelNo == "null"){
+        $(".departmentSelect").eq(index).val("null");
+        $(".brandSelect").eq(index).val("null");
+        $(".fittingSelect").eq(index).val("null");
+        $(".supplierSelect").eq(index).val("null");
+        $(".colorSelect").eq(index).val("null");
+        $(".sizeSelect").eq(index).val("null");
+    }else {
+        $.ajax({
+            type: "POST",
+            url: "/backModuleInfo",
+            dataType: "json",
+            data: {
+                "moduleNum": modelNo
+            },
+            success: function (res) {
+                console.log(res);
+                $(".departmentSelect").eq(index).val(res.moduleInfo[1]);
+                $(".brandSelect").eq(index).val(res.moduleInfo[2]);
+                $(".fittingSelect").eq(index).val(res.moduleInfo[3]);
+                $(".supplierSelect").eq(index).val(res.moduleInfo[4]);
+                $(".colorSelect").eq(index).val(res.moduleInfo[5]);
+                $(".sizeSelect").eq(index).val(res.moduleInfo[6]);
+            },
+            error: function (e) {
+            }
+        });
+    }
+});
+
+//向后台传值 并加入列表
+$("#addBtnAutomatic").click(function(){
+    var lock = [];
+    $(".t1Automatic").each(function() {
+        lock.push($(this).find("td").eq(11).html());
+    });
+
+    $("#addBtnAutomatic").attr('disabled',true);
+    $("#addBtnAutomatic").css("background-color"," grey ");
+    console.log(lock);
+    $.ajax({
+        type: "POST",
+        url: "/OutHouse/backLockInfo",
+        dataType: "json",
+        data: {
+            "jeansId":JSON.stringify(lock)
+        },
+        success: function (res) {
+            if(!res){
+                $("#refDialog").dialog( "open" );
+            }else{
+                var length = 0;
+                var n=$(".t2").length+1;
+                $(".t1Automatic").each(
+                    function() {
+                        for (var i = 0; i < res.listJeaLock.length; i++){
+                            if($(this).find("td").eq(1).html()==res.listJeaLock[i][0]&&res.listJeaLock[i][1]=="0"){
+                                $("#tipDiv").find("p").html("ID为"+$(this).parent().parent().find("td").eq(1).html()+"的包裹已经被锁定！<br>This packages is locked.");
+                                $("#tipDiv").dialog("open");
+                                return;
+                            }
+                        }
+                        var rest = parseInt($(this).find("td").eq(12).html());
+                        if(rest == ""){
+                            rest = 0;
+                        }
+                        var total = rest + parseInt($(this).find("td").eq(10).html());
+                        $("#tab2Automatic").append("<tr class='t2Automatic'>" +
+                                "<td>" + n + "</td>" +
+                                "<td>"  +$(this).find("td").eq(1).html() + "</td>" +
+                                "<td>" + $(this).find("td").eq(2).html()+ "</td>" +
+                                "<td>" + $(this).find("td").eq(3).html() + "</td>" +
+                                "<td>" + $(this).find("td").eq(4).html() + "</td>" +
+                                "<td>" + $(this).find("td").eq(5).html() + "</td>" +
+                                "<td>" + $(this).find("td").eq(6).html()+ "</td>" +
+                                "<td>" + $(this).find("td").eq(7).html()+ "</td>" +
+                                "<td>" + $(this).find("td").eq(8).html()+ "</td>" +
+                                "<td>" + $(this).find("td").eq(9).html()+ "</td>" +
+                                "<td>" + total + "</td>" +
+                                "<td style='display: none'>" + $(this).find("td").eq(11).html() + "</td>"+
+                                "<td>" + $(this).find("td").eq(10).html() + "</td></tr>");
+                        n++;
+                        $(this).remove();
+                        });
+                var tdNum = 1;
+                $("#tabAutomatic").find(".t1Automatic").each(function(){
+                    if(tdNum <= $("#tab").find("tr").length){
+                        $(this).find("td").first().html(tdNum);
+                        tdNum++;
+                    }
+                });
+
+                colorChange();
+
+                $("#emptyAutomatic").attr('disabled',false);
+                $("#emptyAutomatic").css("background-color"," #49a9ee ");
+                $("#outAutomatic").attr('disabled',false);
+                $("#outAutomatic").css("background-color"," #49a9ee ");
+                //如果没有剩余的选项 就将出库按钮设置为disable
+                /*if(cancheck==0){
+                 $("#addBtn").attr('disabled',true);
+                 $("#addBtn").css("background-color","grey");
+                 }*/
+            }
+        },
+        error: function(e) {
+            $("#addBtnAutomatic").attr('disabled',false);
+            $("#addBtnAutomatic").css("background-color"," #49a9ee ");
+            $("#tipDiv").find("p").html("连接失败，请重试！<br>Connect failed! Please retry!");
+            $("#tipDiv").dialog("open");
+        }
+    })
+});
+$("#addBtn").click(function(){
+    var lock = [];
+    $("input[name='chkItem']:checkbox").each(function() {
+        if($(this).is(":checked")){
+            lock.push($(this).parent().parent().find("td").eq(11).html());
+        }
+    });
+    console.log(lock);
+
+    $("#addBtn").attr('disabled',true);
+    $("#addBtn").css("background-color"," grey ");
+    $.ajax({
+            type: "POST",
+            url: "/OutHouse/backLockInfo",
+            dataType: "json",
+            data: {
+                "jeansId":JSON.stringify(lock)
+            },
+            success: function (res) {
+                if(!res){
+                    $("#refDialog").dialog( "open" );
+                }else{
+                    var n=$(".t2").length+1;
+                    $("input[name='chkItem']:checkbox").each(
+                        function() {
+                            for (var i = 0; i < res.listJeaLock.length; i++){
+                            if($(this).parent().parent().find("td").eq(1).html()==res.listJeaLock[i][0]&&res.listJeaLock[i][1]=="0"){
+                                $("#tipDiv").find("p").html("ID为"+$(this).parent().parent().find("td").eq(1).html()+"的包裹已经被锁定！<br>This packages is locked.");
+                                $("#tipDiv").dialog("open");
+                            }
+                        }
+                            if($(this).is(":checked")){
+                                $("#tab2").append("<tr class='t2'>" +
+                                    "<td>" + n + "</td>" +
+                                    "<td>"  +$(this).parent().parent().find("td").eq(1).html() + "</td>" +
+                                    "<td>" + $(this).parent().parent().find("td").eq(2).html()+ "</td>" +
+                                    "<td>" + $(this).parent().parent().find("td").eq(3).html() + "</td>" +
+                                    "<td>" + $(this).parent().parent().find("td").eq(4).html() + "</td>" +
+                                    "<td>" + $(this).parent().parent().find("td").eq(5).html() + "</td>" +
+                                    "<td>" + $(this).parent().parent().find("td").eq(6).html()+ "</td>" +
+                                    "<td>" + $(this).parent().parent().find("td").eq(7).html()+ "</td>" +
+                                    "<td>" + $(this).parent().parent().find("td").eq(8).html()+ "</td>" +
+                                    "<td>" + $(this).parent().parent().find("td").eq(9).html()+ "</td>" +
+                                    "<td>" + $(this).parent().parent().find("td").eq(10).html()+ "</td>" +
+                                    "<td style='display:none;'>" + $(this).parent().parent().find("td").eq(11).html()+ "</td>" +
+                                    "<td><input type='number' style='width: 5rem' class='numInput' max='"+$(this).parent().parent().find("td").eq(10).html()+"'></td>" +
+                                    "<td ><input name='chkItem2' type='checkbox'></td></tr>");
+                                n++;
+                                $(this).parent().parent().remove();
+                                //当加入出库列表后 出库与清空按钮可用
+                            }}   );
+                    var tdNum = 1;
+                    $("#tab").find(".t1").each(function(){
+                        if(tdNum <= $("#tab").find("tr").length){
+                            $(this).find("td").first().html(tdNum);
+                            tdNum++;
+                        }
+                    });
+
+                    $("#checkAll").prop("checked", false);
+                    $("#checkAll2").prop("checked", false);
+
+                    colorChange();
+
+                    $("[name = chkItem2]:checkbox").on("click", function () {
+                        var isChecked = false;
+                        $("[name = chkItem2]:checkbox").each(function () {
+                            if($(this).is(":checked")){
+                                isChecked = true;
+                            }
+                        });
+                        if(!isChecked){
+                            $("#empty").attr('disabled',true);
+                            $("#empty").css("background-color"," grey ");
+                            $("#out").attr('disabled',true);
+                            $("#out").css("background-color"," grey ");
+                        }else{
+                            $("#empty").attr('disabled',false);
+                            $("#empty").css("background-color"," #49a9ee ");
+                            $("#out").attr('disabled',false);
+                            $("#out").css("background-color"," #49a9ee ");
+                        }
+
+                        var allCheck = true;
+                        $("[name = chkItem2]:checkbox").each(function () {
+                            if(!$(this).is(":checked")) {
+                                allCheck = false;
+                            }
+                        });
+                        if(allCheck){
+                            $("#checkAll2").prop("checked", true);
+                        }else{
+                            $("#checkAll2").prop("checked", false);
+                        }
+
+                        if ($(this).is(":checked")) {
+                            $(this).parent().parent().css("color","red");
+                        }else{
+                            $(this).parent().parent().css("color","black");
+                        }
+                    });
+
+                    //如果没有剩余的选项 就将出库按钮设置为disable
+                    /*if(cancheck==0){
+                        $("#addBtn").attr('disabled',true);
+                        $("#addBtn").css("background-color","grey");
+                    }*/
+                     }
+            },
+            error: function(e) {
+                $("#addBtn").attr('disabled',false);
+                $("#addBtn").css("background-color"," #49a9ee ");
+                $("#tipDiv").find("p").html("连接失败，请重试！<br>Connect failed! Please retry!");
+                $("#tipDiv").dialog("open");
+            }
+        })
+});
+
+//出库
+$("#outDialog").dialog({
     autoOpen: false,
     width: 400,
+    modal: true,
     buttons: [
         {
-            text: "确定-Ok",
+            text: "出库-Outbound",
             click: function() {
-                location.href=("./autoDistribution.html");
-                $( this ).dialog( "close" );
+                var out = [];
+                var pacID = [];
+                var modelNoList = [];
+                if ($("#tabs-2").css("display") == "none") {
+                    $(".t2Automatic").each(function () {
+                        for (var i = 0; i < pacID.length; i++) {
+                            var isExist = false;
+                            if($(this).find("td").eq(1).html() == pacID[i]){
+                                isExist = true;
+                            }
+                        }
+                        if(!isExist){
+                            pacID.push($(this).find("td").eq(1).html());
+                        }
+                        out.push($(this).find("td").eq(11).text());
+                        out.push($(this).find("td").eq(12).text());
+                        modelNoList.push([$(this).find("td").eq(1).text(),$(this).find("td").eq(2).text()]);
+                    });
+                } else {
+                    $("input[name='chkItem2']:checkbox").each(function () {
+                        if ($(this).is(":checked")) {
+                            for (var i = 0; i < pacID.length; i++) {
+                                var isExist = false;
+                                if($(this).parent().parent().find("td").eq(1).html() == pacID[i]){
+                                    isExist = true;
+                                }
+                            }
+                            if(!isExist){
+                                pacID.push($(this).parent().parent().find("td").eq(1).html());
+                            }
+                            out.push($(this).parent().parent().find("td").eq(11).text());
+                            out.push($(this).parent().parent().find("td").eq(12).find("input").val());
+                            modelNoList.push([$(this).parent().parent().find("td").eq(1).text(),$(this).parent().parent().find("td").eq(2).text()]);
+                        }
+                    });
+                }
+                localStorage.setItem("outboundFailurePacID", JSON.stringify(pacID));
+                localStorage.setItem("outboundFailureModelNo", JSON.stringify(modelNoList));
+                $("#loadingDialog").find("span").html("出库中，请稍等-Outbound，please wait ......");
+                $("#loadingDialog").dialog("open");
+                $('#shclDefault').shCircleLoader();
+                loading = true;
+                window.setInterval(isOverTime, 600000);
+                $.ajax({
+                    type: "POST",
+                    url: "/OutHouse/deletePackage",
+                    dataType: "json",
+                    data: {
+                        "username": username,
+                        "jeansId": JSON.stringify(out),
+                    },
+                    success: function (res) {
+                        loading = false;
+                        $("#loadingDialog").dialog("close");
+                        var str = null;
+                        var myDate = new Date();
+
+                        function p(s) {
+                            return s < 10 ? '0' + s : s;
+                        }
+
+                        str = "" + myDate.getFullYear() + "-";
+                        str += (myDate.getMonth() + 1) + "-";
+                        str += myDate.getDate() + " ";
+                        str += (p(myDate.getHours()) + ":");
+                        str += p(myDate.getMinutes());
+                        localStorage.setItem("outUsername", username);
+                        localStorage.setItem("outboundTime", str);
+                        $("#outDialog").dialog("close");
+                        $("#dialog").dialog("open");
+                        //若没有可供操作的选项，出库与清空按钮设置为disable
+                        if ($("#tabs-2").css("display") == "none") {
+                            var packTable = $("#tab2Automatic").clone();
+                            packTable.find("#t2Automatic").find("td").eq(10).html("原有数量-Original Num.");
+                            packTable.find("#t2Automatic").find("td").last().after("<td>剩余数量-Rest Num.</td>");
+                            packTable.find(".t2Automatic").each(function () {
+                                var total = parseInt($(this).find("td").eq(10).html());
+                                var rest = total - parseInt($(this).find("td").eq(12).html());
+                                $(this).find("td").last().after("<td>"+rest +"</td>");
+                            });
+
+                            for (var i = 0; i < packTable.find(".t2Automatic").length; i++) {
+                                var n = i + 1;
+                                packTable.find(".t2Automatic").eq(i).find("td").first().html(n);
+                            }
+                            packTable.find(".t2Automatic").css("color","black");
+                            localStorage.setItem("outPackTable", packTable.html());
+
+                            $("#emptyAutomatic").attr('disabled', true);
+                            $("#emptyAutomatic").css("background-color", "grey");
+                            $("#outAutomatic").attr('disabled', true);
+                            $("#outAutomatic").css("background-color", "grey");
+                        } else {
+                            var packTable = $("#tab2").clone();
+                            var outList = [];
+                            packTable.find("#t2").find("td").eq(10).html("原有数量-Original Num.");
+                            packTable.find("#t2").find("td").eq(12).html("剩余数量-Rest Num.");
+
+                            packTable.find(".t2").each(function () {
+                                if(!$(this).find("td").last().find("input").is(":checked")){
+                                    $(this).remove();
+                                }else{
+                                    var rest = 0;
+                                    var outNum = parseInt($(this).find("input").val());
+                                    for (var i = 0; i < outList.length; i++) {
+                                        var isExist = false;
+                                        if($(this).find("td").eq(1).html() == outList[i]){
+                                            isExist = true;
+                                        }
+                                    }
+                                    if(!isExist){
+                                        outList.push($(this).find("td").eq(1).html());
+                                    }
+                                    if($(this).find("input").val() == ""){
+                                        outNum = 0;
+                                    }
+                                    $(this).find("td").last().remove();
+                                    rest = parseInt($(this).find("td").eq(10).html()) - outNum;
+                                    $(this).find("td").eq(12).html(outNum);
+                                    $(this).find("td").eq(12).after("<td>"+rest+"</td>");
+                                    $(this).css("color","black");
+                                }
+                            });
+                            console.log(outList);
+
+                            for (var i = 0; i < packTable.find(".t2").length; i++) {
+                                var n = i + 1;
+                                packTable.find(".t2").eq(i).find("td").first().html(n);
+                            }
+                            localStorage.setItem("outPackTable", packTable.html());
+
+                            $("#empty").attr('disabled', true);
+                            $("#empty").css("background-color", "grey");
+                            $("#out").attr('disabled', true);
+                            $("#out").css("background-color", "grey");
+                        }
+
+                    },
+                    error: function (e) {
+                        loading = false;
+                        $("#loadingDialog").dialog("close");
+                        $("#tipDiv").find("p").html("连接失败，请重试！<br>Connect failed! Please retry!");
+                        $("#tipDiv").dialog("open");
+                    }
+                });
             }
         },
         {
-            text: "取消-Cancel",
+            text: "关闭-close",
             click: function() {
                 $( this ).dialog( "close" );
             }
         }
     ]
 });
+$("#out").click(function () {
+    var isNormal = true;
+    $(".numInput").each(function () {
+        var num = parseInt($(this).val());
+        var max = parseInt($(this).parent().parent().find("td").eq(10).text());
+        if($(this).parent().parent().find("input[name='chkItem2']:checkbox").is(":checked")){
+            if(num <= 0 || max < num || isNaN(num)){
+                isNormal = false;
+            }
+        }
+    });
+    console.log(isNormal);
+    if(!isNormal){
+        $("#tipDiv").find("p").html('货物数量必须大于0且不大于现有数量！<br> The number of wares should be greater than 0 and less than "Now Num."!');
+        $("#tipDiv").dialog("open");
+    }else {
+        $("#outDialog").dialog("open")
+    }
+});
+$("#outAutomatic").click(function () {
+    $("#outDialog").dialog("open")
+});
 
-$("#del1").click(function () {
-    $("#dialog").dialog("open");
-});
-$("#checkAll").bind("click", function () {
-    if($("#checkAll").is(":checked")) {
-        $("[name = chkItem]:checkbox").prop("checked", true);
-    }
-    else{
-        $("[name = chkItem]:checkbox").prop("checked", false)
-    }
-});
-$("#checkAll2").bind("click", function () {
-    if($("#checkAll2").is(":checked")) {
-        $("[name = chkItem2]:checkbox").prop("checked", true);
-    }
-    else{
-        $("[name = chkItem2]:checkbox").prop("checked", false)
-    }
+$("#emptyAutomatic").click(function () {
+    $("#empty").click();
 });
 
+//清空
+$("#empty").click(function(){
+    var unlock = [];
+    if($("#tabs-2").css("display") == "none"){
+        $(".t2Automatic").each(function () {
+            unlock.push($(this).find("td").eq(11).text());
+        });
+        $("#emptyAutomatic").attr('disabled', true);
+        $("#emptyAutomatic").css("background-color", "grey");
+        $("#outAutomatic").attr('disabled', true);
+        $("#outAutomatic").css("background-color", "grey");
+    }else {
+        $("input[name='chkItem2']:checkbox").each(function () {
+            if ($(this).is(":checked")) {
+                unlock.push($(this).parent().parent().find("td").eq(11).html());
+            }
+        });
+        $("#empty").attr('disabled', true);
+        $("#empty").css("background-color", "grey");
+        $("#out").attr('disabled', true);
+        $("#out").css("background-color", "grey");
+    }
+    console.log(unlock);
+
+    $.ajax({
+        type: "POST",
+        url: "/OutHouse/unLockPac",
+        dataType: "json",
+        data: {
+            "jeaId":JSON.stringify(unlock)
+        },
+        success: function (res) {
+            if(!res){
+                $("#tipDiv").find("p").html("操作失败，请刷新重试！<br> Operation failed！Please refresh and retry!");
+                $("#tipDiv").dialog("open");
+            }else if(res.backInfo=="unlock success") {
+                if ($("#tabs-2").css("display") == "none") {
+                    $(".t2Automatic").each(function () {
+                        var isExist = false;
+                        var thisDom = $(this);
+                        var jeansID = thisDom.parent().parent().find("td").eq(11).html();
+                        $(".t1Automatic").each(function () {
+                            if($(this).find("td").eq(11).text() == jeansID){
+                                isExist = true;
+                                thisDom.remove();
+                            }
+                        });
+                        if(!isExist) {
+                            var total = parseInt(thisDom.find("td").eq(10).html());
+                            var rest = total - parseInt(thisDom.find("td").eq(12).html());
+                            $("#tabAutomatic").append("<tr class='t1Automatic'>" +
+                                "<td>" + (Number($("#tabAutomatic").find(".t1Automatic").length) + 1) + "</td>" +
+                                "<td>" + thisDom.find("td").eq(1).html() + "</td>" +
+                                "<td>" + thisDom.find("td").eq(2).html() + "</td>" +
+                                "<td>" + thisDom.find("td").eq(3).html() + "</td>" +
+                                "<td>" + thisDom.find("td").eq(4).html() + "</td>" +
+                                "<td>" + thisDom.find("td").eq(5).html() + "</td>" +
+                                "<td>" + thisDom.find("td").eq(6).html() + "</td>" +
+                                "<td>" + thisDom.find("td").eq(7).html() + "</td>" +
+                                "<td>" + thisDom.find("td").eq(8).html() + "</td>" +
+                                "<td>" + thisDom.find("td").eq(9).html() + "</td>" +
+                                "<td>" + thisDom.find("td").eq(12).html() + "</td>" +
+                                "<td style='display: none'>" + thisDom.find("td").eq(11).html() + "</td>"+
+                                "<td style='display: none'>" + rest + "</td></tr>");
+                            thisDom.remove();
+                        }
+                    });
+
+                    colorChange();
+
+                    $("#addBtnAutomatic").attr('disabled',false);
+                    $("#addBtnAutomatic").css("background-color"," #49a9ee ");
+                }else {
+                    $("#checkAll").prop("checked", false);
+                    $("#checkAll2").prop("checked", false);
+                    $("input[name='chkItem2']:checkbox").each(function () {
+                        if ($(this).is(":checked")) {
+                            var isExist = false;
+                            var thisDom = $(this);
+                            var jeansID = thisDom.parent().parent().find("td").eq(11).html();
+                            $("input[name='chkItem']:checkbox").each(function () {
+                                if($(this).parent().parent().find("td").eq(11).text() == jeansID){
+                                    isExist = true;
+                                    thisDom.parent().parent().remove();
+                                }
+                            });
+                            if(!isExist) {
+                                $("#tab").append("<tr class='t1'>" +
+                                    "<td>" + (Number($("#tab").find(".t1").length) + 1) + "</td>" +
+                                    "<td>" + thisDom.parent().parent().find("td").eq(1).html() + "</td>" +
+                                    "<td>" + thisDom.parent().parent().find("td").eq(2).html() + "</td>" +
+                                    "<td>" + thisDom.parent().parent().find("td").eq(3).html() + "</td>" +
+                                    "<td>" + thisDom.parent().parent().find("td").eq(4).html() + "</td>" +
+                                    "<td>" + thisDom.parent().parent().find("td").eq(5).html() + "</td>" +
+                                    "<td>" + thisDom.parent().parent().find("td").eq(6).html() + "</td>" +
+                                    "<td>" + thisDom.parent().parent().find("td").eq(7).html() + "</td>" +
+                                    "<td>" + thisDom.parent().parent().find("td").eq(8).html() + "</td>" +
+                                    "<td>" + thisDom.parent().parent().find("td").eq(9).html() + "</td>" +
+                                    "<td>" + thisDom.parent().parent().find("td").eq(10).html() + "</td>" +
+                                    "<td style='display:none;'>" + thisDom.parent().parent().find("td").eq(11).html() + "</td>" +
+                                    "<td ><input name='chkItem' type='checkbox'></td></tr>");
+                                thisDom.parent().parent().remove();
+                            }
+                        }
+                    });
+
+                    $("[name = chkItem]:checkbox").on("click", function () {
+                        var isChecked = false;
+                        $("[name = chkItem]:checkbox").each(function () {
+                            if ($(this).is(":checked")) {
+                                isChecked = true;
+                            }
+                        });
+                        if (!isChecked) {
+                            $("#addBtn").attr('disabled', true);
+                            $("#addBtn").css("background-color", "grey");
+                        } else {
+                            $("#addBtn").attr('disabled', false);
+                            $("#addBtn").css("background-color", " #49a9ee ");
+                        }
+
+                        var allCheck = true;
+                        $("[name = chkItem]:checkbox").each(function () {
+                            if (!$(this).is(":checked")) {
+                                allCheck = false;
+                            }
+                        });
+                        if (allCheck) {
+                            $("#checkAll").prop("checked", true);
+                        } else {
+                            $("#checkAll").prop("checked", false);
+                        }
+
+                        if ($(this).is(":checked")) {
+                            $(this).parent().parent().css("color", "red");
+                        } else {
+                            $(this).parent().parent().css("color", "black");
+                        }
+                    });
+
+                    colorChange();
+
+                    //若没有可供操作的选项，出库与清空按钮设置为disable
+                    $("#empty").attr('disabled', true);
+                    $("#empty").css("background-color", "grey");
+                    $("#out").attr('disabled', true);
+                    $("#out").css("background-color", "grey");
+                }
+            }
+        },
+        error: function(e) {
+            if($("#tabs-2").css("display") == "none"){
+                $("#emptyAutomatic").attr('disabled',false);
+                $("#emptyAutomatic").css("background-color"," #49a9ee ");
+                $("#outAutomatic").attr('disabled',false);
+                $("#outAutomatic").css("background-color"," #49a9ee ");
+            }else {
+                $("#empty").attr('disabled',false);
+                $("#empty").css("background-color"," #49a9ee ");
+                $("#out").attr('disabled',false);
+                $("#out").css("background-color"," #49a9ee ");
+            }
+            $("#tipDiv").find("p").html("连接失败，请重试！<br>Connect failed! Please retry!");
+            $("#tipDiv").dialog("open");
+        }
+    })
+});
+
+//对话框
+$( "#dialog" ).dialog({
+    autoOpen: false,
+	closeOnEscape: false,
+	dialogClass: "no-close",
+    width: 400,
+    modal: true,
+    buttons: [
+        {
+            text: "打印-Print",
+            click: function() {
+                /*if($("#tabs-2").css("display") == "none"){
+
+                }else {
+
+                }*/
+                $(this).dialog("close");
+                $("#printDialog").dialog("open");
+                window.open("./outboundPrint.html");
+            }
+        }
+    ]
+});
+$("#printDialog").dialog({
+    autoOpen: false,
+    width: 400,
+    modal: true,
+    closeOnEscape: false,
+    dialogClass: "no-close",
+    buttons: [
+        {
+            text: "成功-Success!",
+            click: function() {
+                window.location.reload();
+            }
+        },
+        {
+            text: "失败！重新打印-Failure！Query and reprint",
+            click: function() {
+                //跳转查询
+                function p(s) {
+                    return s < 10 ? '0' + s: s;
+                }
+                var myDate = new Date();
+                var str = "" + myDate.getFullYear() + "-";
+                str += p(myDate.getMonth()+1) + "-";
+                str += p(myDate.getDate());
+                location.href="./in&OutboundQuery.html?outbound="+str;
+            }
+        }
+    ]
+});
+$("#resDialog").dialog({
+    autoOpen: false,
+    width: 400,
+    modal: true,
+    buttons: [
+        {
+            text: "确定-Ok",
+            click: function () {
+                $(this).dialog( "close" );
+            }
+        }
+    ]
+});
+$("#longDialog").dialog({
+    autoOpen: false,
+    width: 400,
+    modal: true,
+    buttons: [
+        {
+            text: "确定-Ok",
+            click: function () {
+                $(this).dialog( "close" );
+            }
+        }
+    ]
+});
+$("#refDialog").dialog({
+    autoOpen: false,
+    width: 400,
+    modal: true,
+    buttons: [
+        {
+            text: "确定-Ok",
+            click: function () {
+                $(this).dialog( "close" );
+            }
+        }
+    ]
+});
+
+$("#tipDiv").dialog({
+    autoOpen: false,
+    modal: true,
+    width: 400,
+    buttons: [
+        {
+            text: "确定-Ok",
+            click: function() {
+                $(this).dialog( "close" );
+            }
+        }
+    ]
+});
+
+$( "#loadingDialog" ).dialog({
+    autoOpen: false,
+    width: 400,
+    modal:true,
+    closeOnEscape: false,
+    dialogClass: "no-close"
+});

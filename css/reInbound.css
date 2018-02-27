@@ -1,0 +1,56 @@
+#goodsDivRe{
+    border-top: thin solid grey;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+}
+#detailsTableRe{
+    border: thin solid #ecf6fd;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    height:2.5rem;
+    width:95%;
+    position: relative;
+    left:2.5%;
+    right:2.5%;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+#headTrRe{
+    border: thin solid #ecf6fd;
+    background-color: #ecf6fd;
+    font-size: 0.9rem;
+    line-height:2.5rem;
+    position: relative;
+    left:2.5%;
+    right:2.5%;
+    text-align: center;
+}
+.goodsTrRe{
+    border: thin solid #ecf6fd ;
+    font-size: 0.9rem;
+    line-height:2.5rem;
+    width:95%;
+    position: relative;
+    left:2.5%;
+    right:2.5%;
+    text-align: center;
+}
+.goodsTrRe input{
+    background-color: transparent;
+}
+#totalTrRe{
+    border: thin solid #ecf6fd ;
+    font-size: 0.9rem;
+    line-height:2.5rem;
+    width:95%;
+    position: relative;
+    left:2.5%;
+    right:2.5%;
+    text-align: center;
+}
+#operationDivRe{
+    border-top: thin solid grey;
+    padding-top: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+}

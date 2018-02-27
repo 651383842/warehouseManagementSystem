@@ -5,6 +5,7 @@
     height: 95%;
     padding-top: 0.5rem;
     padding-left: 0.5rem;
+    overflow: hidden;
 }
 .button{
     color: white;
@@ -15,4 +16,10 @@
 }
 #selectSpan{
     margin-left: 0.5rem;
+}
+#spaceInputSpan{
+	display:none;
+}
+.shelfDiv{
+    height: 87%;
 }

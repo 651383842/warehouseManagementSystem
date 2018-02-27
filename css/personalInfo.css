@@ -4,22 +4,21 @@
     outline: none;
     padding: 0.3rem 0.5rem;
     font-size: 0.8rem;
-    width:30%;
+    width:28%;
     color:#a0a0a0;
     height:1.0rem;
 }
 .line{
-    display: flex;
-    justify-content: space-between;
-    padding:1rem 2rem;
+    padding-top:2rem;
+    /*position: relative;*/
+   text-align: center;
 }
-#nameInput{
-    position: relative;
-    left:1.4rem;
+#CurrentP{
+
 }
 .btn{
     display: flex;
     justify-content: space-around;
     position: relative;
-    top:22rem;
+    top:10rem;
 }

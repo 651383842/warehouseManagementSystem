@@ -18,7 +18,7 @@
     padding: 0.3rem 0.5rem;
     font-size: 0.8rem;
     width:8rem;
-    color:#a0a0a0;
+    /*color:#a0a0a0;*/
     height:1.0rem;
     position: relative;
     margin-left: 2rem;
@@ -102,7 +102,7 @@
      position: relative;
      top: 0.4rem;
  }
-#detail{
+#eil{
     width:1.5rem;
     height:1.5rem;
     position: relative;
